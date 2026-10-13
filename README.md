@@ -1,5 +1,7 @@
 # Time Tracker
 
+![PHP 8.1+](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white) ![MariaDB / MySQL](https://img.shields.io/badge/MariaDB%20%2F%20MySQL-supported-003545?logo=mariadb&logoColor=white) ![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white) ![No build step](https://img.shields.io/badge/build%20step-none-2ea44f) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![Latest release](https://img.shields.io/github/v/release/skroustalis/timetracker)](https://github.com/skroustalis/timetracker/releases/latest)
+
 A self-hosted time tracker for small teams, written in plain PHP with MariaDB/MySQL. No framework, no build step and no Composer: upload the files to any shared host (cPanel, Plesk…), open `install.php` in the browser, and you are running.
 
 It was built as a self-hosted replacement for Clockify, for a team of about 15 people who log many entries a day. The interface is in **Greek and English**, and each user can pick their own theme.
@@ -91,6 +93,8 @@ It was built as a self-hosted replacement for Clockify, for a team of about 15 p
 - Apache with `mod_rewrite` (for clean URLs; LiteSpeed works too)
 
 ## Installation (browser only)
+
+Download the latest version from [Releases](https://github.com/skroustalis/timetracker/releases/latest) (or *Code → Download ZIP*).
 
 1. Create an empty database and a database user in your hosting panel.
 2. Upload the contents of this repository to a folder on your host (e.g. `public_html/timetracker`) with FTP or the File Manager. The `docs/` folder is not needed on the server.
