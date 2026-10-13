@@ -1,0 +1,52 @@
+# Time Tracker
+Options -Indexes
+DirectoryIndex index.php
+
+# Δικοί μας κανόνες (ακυρώνουν τα rewrites του PrestaShop από τον γονικό φάκελο)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Ο φάκελος της εφαρμογής (λειτουργεί και στη ρίζα και σε υποφάκελο)
+  RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+  RewriteRule ^(.*)$ - [E=TT_BASE:%1]
+
+  # Καθαρά URLs: /projects.php → /projects (μόνο όταν το ζητά ο browser με GET· οι φόρμες POST δεν πειράζονται)
+  RewriteCond %{REQUEST_METHOD} =GET
+  RewriteCond %{THE_REQUEST} \s[^\s?]*/([a-z_]+)\.php[\s?]
+  RewriteCond %1 !^index$
+  RewriteRule ^([a-z_]+)\.php$ %{ENV:TT_BASE}$1 [R=302,L]
+
+  # /projects → projects.php (εσωτερικά, το URL μένει καθαρό)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^([a-z_]+)$ $1.php [L]
+</IfModule>
+
+# Μην σερβίρεις αρχεία που δεν πρέπει
+<FilesMatch "\.(sql|md|log|lock|zip)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Συμπίεση: τα αρχεία εμφάνισης φτάνουν ~3 φορές μικρότερα
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/csv application/javascript text/javascript application/json image/svg+xml
+</IfModule>
+
+# Ο browser κρατά CSS/JS/εικόνες/γραμματοσειρές (έχουν ?v=έκδοση, οπότε μια νέα έκδοση φορτώνει αμέσως)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+</IfModule>

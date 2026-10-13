@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.woff binary
+*.woff2 binary
+# Bundled third-party files: keep them out of GitHub's language stats
+assets/vendor/** linguist-vendored
+docs/** linguist-documentation

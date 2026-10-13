@@ -1,0 +1,1198 @@
+/* Time Tracker — συμπληρωματικά στυλ πάνω στο Bootstrap 5 */
+:root{
+  --app-top:60px;
+  --app-side:248px;
+  --app-bg:#f3f5f9;
+  --app-navy:#14213d;
+  --app-navy-2:#1d2d50;
+  --bs-body-font-size:1rem;
+  --bs-body-bg:var(--app-bg);
+}
+body{background:var(--app-bg)}
+.font-monospace,.mono{font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;margin-right:.45rem;vertical-align:middle;flex:none}
+.bi{line-height:1}
+
+/* ---------- Πλαίσιο ---------- */
+.app-topbar{height:var(--app-top);z-index:1035;background:#fff;border-bottom:1px solid #e3e8ef}
+.running-pill{background:#f8f9fa;border:1px solid #dee2e6}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--app-navy);color:#d9bb84;font-size:1.25rem}
+.avatar{display:inline-flex;width:38px;height:38px;border-radius:50%;background:var(--app-navy);color:#fff;align-items:center;justify-content:center;font-size:.85rem;font-weight:600}
+.running-pill-label{max-width:240px}
+.app-sidebar,.app-sidebar.offcanvas-lg{background-color:var(--app-navy)!important;color:#c9d3e6}
+.app-sidebar .offcanvas-header{color:#fff;border-color:rgba(255,255,255,.1)!important}
+.sidebar-logo{display:flex;flex-direction:column;align-items:flex-start;gap:.45rem;padding:1.4rem 1.5rem 1rem;text-decoration:none}
+.sidebar-logo img{width:100%;max-width:190px;height:auto}
+.sidebar-logo span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#d9bb84;font-weight:600}
+.app-sidebar .nav-heading{padding:1.1rem 1.5rem .35rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:#7f8db0}
+.app-sidebar .nav-link{display:flex;align-items:center;gap:.85rem;padding:.7rem 1.5rem;color:#d5dcec;font-size:1rem;border-left:3px solid transparent}
+.app-sidebar .nav-link .bi{font-size:1.25rem;width:1.4rem;text-align:center}
+.app-sidebar .nav-link:hover{background:var(--app-navy-2);color:#fff}
+.app-sidebar .nav-link.active{background:var(--app-navy-2);color:#fff;border-left-color:var(--bs-primary);font-weight:500}
+@media (min-width:992px){
+  .app-sidebar{position:fixed;top:var(--app-top);bottom:0;left:0;width:var(--app-side);overflow-y:auto;z-index:1020}
+  .app-main{margin-left:var(--app-side)}
+}
+@media (max-width:991.98px){
+  .app-sidebar{--bs-offcanvas-width:280px;--bs-offcanvas-bg:var(--app-navy)}
+}
+.app-main{padding:calc(var(--app-top) + 1.75rem) 1.75rem 3rem;max-width:1600px}
+.app-main-full{min-height:100vh}
+@media (max-width:575.98px){.app-main{padding:calc(var(--app-top) + 1rem) .75rem 2rem}}
+
+.card{border-color:#e3e8ef;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.card-header{background:#fff;font-weight:500}
+.btn-icon{--bs-btn-padding-x:.5rem;--bs-btn-padding-y:.35rem;color:#8a94a6;border:0;position:relative}
+.btn-icon:hover,.btn-icon:focus-visible{color:var(--bs-body-color);background:#eef1f6}
+.btn-icon.text-primary{color:var(--bs-primary)!important}
+.table > :not(caption) > * > *{padding:.75rem 1rem}
+.table thead th{font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;color:#6c757d;font-weight:600;background:#f8f9fb;white-space:nowrap}
+.table tfoot th{background:#f8f9fb}
+.table tr.row-muted td{color:#9aa4b5}
+.text-num{text-align:right;white-space:nowrap}
+.inline-edit .form-control{border-color:transparent;background:transparent;min-width:140px}
+.inline-edit .form-control:hover{border-color:var(--bs-border-color)}
+.inline-edit .form-control:focus{background:#fff}
+
+/* ---------- Χρονομέτρηση ---------- */
+.trackbar{position:sticky;top:calc(var(--app-top) + .75rem);z-index:1010}
+.trackbar .card-body{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.75rem 1rem}
+.trackbar .tb-desc{flex:1 1 260px;font-size:1.1rem;border-color:transparent}
+.trackbar .tb-desc:hover{border-color:var(--bs-border-color)}
+.trackbar .tb-select{width:auto;max-width:230px;border-color:transparent;color:var(--bs-primary);font-weight:500}
+.trackbar .tb-select:hover{border-color:var(--bs-border-color)}
+.trackbar .tb-task.is-empty{display:none}
+.tb-timer{font-size:1.35rem;min-width:7ch;text-align:right;font-weight:600}
+.tb-timer-idle{color:#adb5bd}
+.tb-btn{min-width:120px;font-weight:600;letter-spacing:.03em}
+.tb-manual{display:none;gap:.4rem;align-items:center}
+.tb-manual .form-control{width:auto}
+.tb-manual .tb-time{width:5.2rem;text-align:center}
+.trackbar[data-mode=manual] .tb-manual{display:inline-flex}
+.trackbar[data-mode=manual] .tb-timer-idle{display:none}
+.tb-modes .btn-icon{font-size:1.15rem}
+.tb-modes .btn-icon.active{color:var(--bs-primary)}
+.billable-toggle .btn{font-size:1.25rem}
+.btn-check:checked + .btn-bill{color:var(--bs-primary)}
+.tagpicker .tp-count{position:absolute;top:-2px;right:-4px;font-size:.65rem}
+.tagpicker .tp-count:empty{display:none}
+
+.week-head{display:flex;justify-content:space-between;align-items:baseline;color:#6c757d;margin:1.75rem .25rem .6rem}
+.week-head strong{color:var(--bs-body-color);font-size:1.1rem}
+.day-card .card-header{display:flex;justify-content:space-between;align-items:center;background:#eef1f6;color:#5b6577}
+.day-card .card-header strong{color:var(--bs-body-color);font-size:1.1rem}
+.entry{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem .6rem 1rem;border-top:1px solid #edf0f4;min-height:3.6rem}
+.entry:first-child{border-top:0}
+.entry-desc{flex:1 1 auto;min-width:0;text-align:left;background:none;border:0;padding:.25rem 0;color:inherit;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:1.02rem}
+.entry-desc:hover{color:var(--bs-primary)}
+.entry-project{flex:0 1 auto;min-width:0;max-width:34%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-tags{max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#6c757d;font-size:.9rem}
+.entry-bill{color:#ced4da;font-size:1.15rem}
+.entry-bill.on{color:var(--bs-primary)}
+.entry-times{color:#6c757d;min-width:7.5rem;text-align:center;font-size:.95rem}
+.entry-dur{font-size:1.1rem;font-weight:600;min-width:6.2rem;text-align:right}
+@media (max-width:991.98px){.entry-tags{display:none}}
+@media (max-width:767.98px){
+  .trackbar{position:static}
+  .trackbar .tb-desc{flex-basis:100%}
+  .entry{flex-wrap:wrap;gap:.25rem .6rem}
+  .entry-desc{flex-basis:100%}
+  .entry-project{flex:1 1 0;max-width:none}
+  .entry-dur{min-width:0}
+}
+@media (max-width:575.98px){.entry-times{display:none}}
+
+/* ---------- Dashboard / γραφήματα ---------- */
+.stat-label{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#6c757d}
+.stat-value{font-size:1.75rem;font-weight:600;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.barchart{display:flex;height:260px;gap:.5rem;padding:1.25rem 0 2rem}
+.bc-axis{position:relative;width:2.4rem;flex:none}
+.bc-axis span{position:absolute;right:.35rem;transform:translateY(50%);font-size:.75rem;color:#8a94a6}
+.bc-plot{position:relative;flex:1;display:flex;align-items:flex-end;gap:4px;border-bottom:1px solid #ced4da}
+.bc-grid{position:absolute;left:0;right:0;border-top:1px dashed #e3e8ef}
+.bc-col{position:relative;flex:1;height:100%;display:flex;align-items:flex-end;justify-content:center;min-width:0}
+.bc-stack{position:relative;width:min(62%,48px);display:flex;flex-direction:column-reverse;border-radius:3px 3px 0 0;overflow:visible}
+.bc-stack i{display:block;min-height:1px}
+.bc-label{position:absolute;top:100%;margin-top:.4rem;font-size:.75rem;color:#5b6577;white-space:nowrap}
+.bc-val{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:3px;font-size:.7rem;color:#5b6577;white-space:nowrap;font-family:var(--bs-font-monospace)}
+.progress{--bs-progress-height:.5rem}
+
+/* ---------- Αναφορές ---------- */
+.table.summary tr.lvl1 td{font-weight:600;background:#fbfcfe}
+.table.summary tr.lvl2 td{font-size:.95rem}
+.table.summary tr.lvl2 td:first-child{padding-left:2.4rem;color:#495057}
+.table .weekend{background:#fafbfd}
+.share-col{width:200px}
+
+/* ---------- Ημερολόγιο ---------- */
+.cal{overflow:hidden}
+.cal-head,.cal-body{display:grid;grid-template-columns:60px repeat(7,minmax(0,1fr))}
+.cal-head{border-bottom:1px solid #e3e8ef;background:#f8f9fb}
+.cal-dayhead{padding:.6rem .4rem;text-align:center;display:flex;flex-direction:column;border-left:1px solid #e3e8ef}
+.cal-dayhead.today strong{color:var(--bs-primary)}
+.cal-body{height:calc(100vh - 250px);min-height:440px;overflow-y:auto;position:relative}
+.cal-hour{height:var(--hour);border-bottom:1px solid #f0f2f6;position:relative}
+.cal-gutter .cal-hour{border-bottom-color:transparent}
+.cal-gutter .cal-hour span{position:absolute;top:-.6rem;right:.5rem;font-size:.75rem;color:#8a94a6}
+.cal-gutter .cal-hour:first-child span{display:none}
+.cal-col{position:relative;border-left:1px solid #e3e8ef}
+.cal-col.can-add{cursor:cell}
+.cal-ev{position:absolute;overflow:hidden;text-align:left;font-size:.78rem;line-height:1.25;padding:.2rem .4rem;border:0;border-left:3px solid var(--c);background:color-mix(in srgb,var(--c) 16%,white);color:#212529;border-radius:4px;cursor:pointer;display:flex;flex-direction:column;gap:1px;z-index:2}
+.cal-ev:hover{background:color-mix(in srgb,var(--c) 28%,white);z-index:3}
+.cal-ev strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-ev span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#495057}
+.cal-ev.running{background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,.55) 6px 12px)}
+.cal-now{position:absolute;left:0;right:0;border-top:2px solid var(--bs-danger);z-index:4;pointer-events:none}
+.cal-now::before{content:"";position:absolute;left:-5px;top:-6px;width:10px;height:10px;border-radius:50%;background:var(--bs-danger)}
+@media (max-width:767.98px){
+  .cal{overflow-x:auto}
+  .cal-head,.cal-body{grid-template-columns:44px repeat(7,minmax(80px,1fr));min-width:620px}
+}
+
+/* ---------- Είσοδος ---------- */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:linear-gradient(160deg,var(--app-navy) 0%,#24396b 100%)}
+.auth-card{width:min(440px,100%)}
+.auth-card.wide{width:min(600px,100%)}
+
+/* ---------- Εκτύπωση ---------- */
+@media print{
+  .app-topbar,.app-sidebar,.no-print,.modal{display:none!important}
+  .app-main{margin:0;padding:0}
+  .card{border:0;box-shadow:none}
+  body{background:#fff}
+}
+
+/* =====================================================================
+   Θέμα «Liquid glass» — ημιδιάφανες θολές κάρτες πάνω σε πολύχρωμο φόντο
+   (ενεργό όταν <html data-theme="glass" data-bs-theme="dark">)
+   ===================================================================== */
+[data-theme=glass]{
+  --glass-bg:rgba(255,255,255,.10);
+  --glass-bg-2:rgba(255,255,255,.06);
+  --glass-bg-hover:rgba(255,255,255,.16);
+  --glass-border:rgba(255,255,255,.20);
+  --glass-line:rgba(255,255,255,.12);
+  --glass-blur:blur(22px) saturate(150%);
+  --glass-pop:rgba(28,22,62,.82);
+  --app-top:64px;
+  --bs-body-color:#fff;
+  --bs-body-color-rgb:255,255,255;
+  --bs-body-bg:transparent;
+  --bs-emphasis-color:#fff;
+  --bs-secondary-color:rgba(255,255,255,.72);
+  --bs-secondary-color-rgb:255,255,255;
+  --bs-tertiary-color:rgba(255,255,255,.5);
+  --bs-border-color:rgba(255,255,255,.2);
+  --bs-border-color-translucent:rgba(255,255,255,.2);
+  --bs-secondary-bg:rgba(255,255,255,.08);
+  --bs-tertiary-bg:rgba(255,255,255,.05);
+  --bs-link-color:#93c5fd;--bs-link-color-rgb:147,197,253;
+  --bs-link-hover-color:#fff; --bs-link-hover-color-rgb:255,255,255;
+  --bs-heading-color:#fff;
+  color-scheme:dark;
+}
+/* Παλέτα όπως στο demo: λευκά κείμενα/κουμπιά, χρωματιστά εικονίδια */
+[data-theme=glass]{--acc-1:#ffffff;--acc-2:#3b82f6;--acc-ink:#111827;--c-blue:#60a5fa;--c-green:#4ade80;--c-yellow:#facc15;--c-purple:#c084fc;--c-pink:#f472b6;--c-link:#93c5fd}
+
+/* Φόντα (μόνο στο θέμα glass) */
+[data-theme=glass] body{min-height:100vh;background-color:#0d0a26;background-attachment:fixed;background-size:cover;background-position:center;background-repeat:no-repeat}
+[data-theme=glass][data-bg=streaks-violet] body,[data-swatch=streaks-violet]{background-image:url("img/bg-streaks-violet.jpg")}
+[data-theme=glass][data-bg=streaks-ocean] body,[data-swatch=streaks-ocean]{background-image:url("img/bg-streaks-ocean.jpg");background-color:#04121f}
+[data-theme=glass][data-bg=midnight] body,[data-swatch=midnight]{background-color:#0a0f24;background-image:radial-gradient(70% 60% at 15% 0%,#26357a 0%,transparent 70%),radial-gradient(60% 60% at 100% 100%,#2c1a5c 0%,transparent 70%),linear-gradient(160deg,#0b1130,#070a1a)}
+[data-theme=glass][data-bg=aurora] body,[data-swatch=aurora]{background-color:#140b2e;background-image:radial-gradient(60% 55% at 0% 0%,#6d28d9 0%,transparent 70%),radial-gradient(55% 50% at 100% 20%,#db2777 0%,transparent 70%),radial-gradient(70% 60% at 50% 100%,#1d4ed8 0%,transparent 70%)}
+[data-theme=glass][data-bg=ocean] body,[data-swatch=ocean]{background-color:#05202a;background-image:radial-gradient(65% 60% at 10% 10%,#0e7490 0%,transparent 70%),radial-gradient(60% 60% at 90% 90%,#1e3a8a 0%,transparent 70%),linear-gradient(180deg,#062a35,#051726)}
+[data-theme=glass][data-bg=forest] body,[data-swatch=forest]{background-color:#06201a;background-image:radial-gradient(60% 60% at 0% 100%,#065f46 0%,transparent 70%),radial-gradient(55% 55% at 100% 0%,#115e59 0%,transparent 70%),linear-gradient(160deg,#08261f,#041510)}
+[data-theme=glass][data-bg=ember] body,[data-swatch=ember]{background-color:#1c0f14;background-image:radial-gradient(60% 55% at 100% 0%,#9a3412 0%,transparent 70%),radial-gradient(60% 60% at 0% 100%,#581c87 0%,transparent 70%),linear-gradient(160deg,#2a1218,#140a10)}
+[data-theme=glass][data-bg=graphite] body,[data-swatch=graphite]{background-color:#111318;background-image:radial-gradient(60% 50% at 20% 0%,#2a2f3a 0%,transparent 70%),radial-gradient(50% 50% at 100% 100%,#1f2430 0%,transparent 70%),linear-gradient(180deg,#15181e,#0c0e12)}
+[data-theme=glass]:not([data-bg]) body{background-image:url("img/bg-streaks-violet.jpg")}
+[data-theme=glass][data-bg^=streaks] body::before{background:radial-gradient(120% 90% at 50% 0%,rgba(0,0,0,.18),rgba(0,0,0,.45)),rgba(0,0,0,.18)}
+[data-theme=glass]:not([data-bg^=streaks]) body::before{background:none}
+
+/* Επιλογή φόντου στο προφίλ */
+.bg-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.75rem}
+.bg-option{display:flex;flex-direction:column;gap:.35rem;cursor:pointer;text-align:center}
+.bg-swatch{display:block;aspect-ratio:16/10;border-radius:.9rem;background-size:cover;background-position:center;border:2px solid rgba(255,255,255,.2);transition:transform .2s,border-color .2s}
+.bg-option:hover .bg-swatch{transform:translateY(-2px)}
+.btn-check:checked + .bg-option .bg-swatch{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.15)}
+.btn-check:focus-visible + .bg-option .bg-swatch{outline:2px solid #fff;outline-offset:2px}
+[data-theme=glass] body::before{ /* σκούρο φίλτρο όπως στο design (black/30) + βάθος */
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(0,0,0,.18),rgba(0,0,0,.45)),rgba(0,0,0,.18);
+}
+[data-theme=glass] .text-body-secondary{color:rgba(255,255,255,.72)!important}
+[data-theme=glass] .text-body-tertiary{color:rgba(255,255,255,.5)!important}
+[data-theme=glass] .text-body{color:#fff!important}
+[data-theme=glass] .bg-white,[data-theme=glass] .bg-light{background-color:transparent!important}
+
+/* Γυάλινες επιφάνειες */
+[data-theme=glass] .card,
+[data-theme=glass] .app-topbar,
+[data-theme=glass] .running-pill{
+  background:var(--glass-bg)!important;
+  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border)!important;
+  box-shadow:0 10px 40px rgba(8,4,30,.28);
+}
+[data-theme=glass] .card{
+  --bs-card-bg:transparent;--bs-card-color:#fff;--bs-card-cap-bg:var(--glass-bg-2);
+  --bs-card-border-color:var(--glass-border);--bs-card-border-radius:1.5rem;--bs-card-inner-border-radius:calc(1.5rem - 1px);
+  --bs-card-cap-color:#fff;
+}
+[data-theme=glass] .card-header{background:var(--glass-bg-2)!important;border-color:var(--glass-line)}
+[data-theme=glass] .card-footer{border-color:var(--glass-line)}
+[data-theme=glass] .card > .table-responsive:first-child,[data-theme=glass] .card > .table-responsive:last-child{border-radius:inherit}
+
+/* Πάνω μπάρα: αιωρούμενη */
+@media (min-width:576px){
+  [data-theme=glass] .app-topbar{top:.75rem;left:.75rem;right:.75rem;border-radius:1.25rem}
+  [data-theme=glass] .app-main{padding-top:calc(var(--app-top) + 2.25rem)}
+}
+[data-theme=glass] .app-topbar .brand-mark{background:linear-gradient(135deg,var(--acc-1),var(--acc-2));color:var(--acc-ink)}
+[data-theme=glass] .avatar{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35)}
+
+/* Πλαϊνό μενού: αιωρούμενη γυάλινη κάρτα */
+[data-theme=glass] .app-sidebar,[data-theme=glass] .app-sidebar.offcanvas-lg{
+  background-color:var(--glass-bg)!important;
+  -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border)!important;color:#fff;
+}
+@media (min-width:992px){
+  [data-theme=glass] .app-sidebar{top:calc(var(--app-top) + 1.5rem);left:.75rem;bottom:.75rem;border-radius:1.5rem;box-shadow:0 10px 40px rgba(8,4,30,.28)}
+  [data-theme=glass] .app-main{margin-left:calc(var(--app-side) + .75rem)}
+}
+@media (max-width:991.98px){
+  [data-theme=glass] .app-sidebar{--bs-offcanvas-bg:rgba(28,22,62,.88)}
+}
+[data-theme=glass] .app-sidebar .nav{padding:.25rem .75rem!important}
+[data-theme=glass] .app-sidebar .nav-heading{color:rgba(255,255,255,.55);padding:1rem .75rem .35rem}
+[data-theme=glass] .app-sidebar .nav-link{color:rgba(255,255,255,.82);border:1px solid transparent;border-radius:.9rem;padding:.65rem .85rem;margin-bottom:.15rem;transition:background .3s,transform .3s}
+[data-theme=glass] .app-sidebar .nav-link:hover{background:rgba(255,255,255,.10);color:#fff;transform:translateX(2px)}
+[data-theme=glass] .app-sidebar .nav-link.active{background:rgba(255,255,255,.20);border-color:rgba(255,255,255,.30);color:#fff}
+[data-theme=glass] .sidebar-logo span{color:rgba(255,255,255,.7)}
+
+/* Φόρμες */
+[data-theme=glass] .form-control,[data-theme=glass] .form-select{
+  background-color:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22);color:#fff;border-radius:.85rem;
+}
+[data-theme=glass] .form-control::placeholder{color:rgba(255,255,255,.45)}
+[data-theme=glass] .form-control:focus,[data-theme=glass] .form-select:focus{
+  background-color:rgba(255,255,255,.12);border-color:rgba(255,255,255,.45);box-shadow:0 0 0 .2rem rgba(255,255,255,.12);color:#fff;
+}
+[data-theme=glass] .form-select option,[data-theme=glass] .form-select optgroup{background:#241c4f;color:#fff}
+[data-theme=glass] .form-control:disabled,[data-theme=glass] .form-select:disabled{background-color:rgba(255,255,255,.03);color:rgba(255,255,255,.4)}
+[data-theme=glass] .input-group > .btn{border-radius:.85rem}
+[data-theme=glass] .input-group > :not(:first-child):not(.dropdown-menu){border-top-left-radius:0;border-bottom-left-radius:0}
+[data-theme=glass] .input-group > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu){border-top-right-radius:0;border-bottom-right-radius:0}
+[data-theme=glass] .form-check-input{background-color:rgba(255,255,255,.1);border-color:rgba(255,255,255,.35)}
+[data-theme=glass] .form-check-input:checked{background-color:#3b82f6;border-color:#60a5fa}
+[data-theme=glass] .form-control-color{padding:.3rem}
+[data-theme=glass] .trackbar .tb-desc,[data-theme=glass] .trackbar .tb-select,[data-theme=glass] .inline-edit .form-control{background-color:transparent;border-color:transparent}
+[data-theme=glass] .trackbar .tb-desc:hover,[data-theme=glass] .trackbar .tb-select:hover,[data-theme=glass] .inline-edit .form-control:hover{border-color:rgba(255,255,255,.25)}
+[data-theme=glass] .trackbar .tb-desc:focus,[data-theme=glass] .inline-edit .form-control:focus{background-color:rgba(255,255,255,.1)}
+[data-theme=glass] .trackbar .tb-select{color:#fff}
+
+/* Κουμπιά */
+[data-theme=glass] .btn{border-radius:.85rem;transition:background .3s,border-color .3s,transform .3s}
+[data-theme=glass] .btn-primary{
+  --bs-btn-color:#fff;--bs-btn-bg:rgba(255,255,255,.20);--bs-btn-border-color:rgba(255,255,255,.32);
+  --bs-btn-hover-color:#fff;--bs-btn-hover-bg:rgba(255,255,255,.30);--bs-btn-hover-border-color:rgba(255,255,255,.45);
+  --bs-btn-active-color:#fff;--bs-btn-active-bg:rgba(255,255,255,.36);--bs-btn-active-border-color:rgba(255,255,255,.5);
+  --bs-btn-disabled-bg:rgba(255,255,255,.1);--bs-btn-disabled-border-color:rgba(255,255,255,.2);
+}
+[data-theme=glass] .btn-primary:hover{transform:translateY(-1px)}
+/* Χρυσό κουμπί έμφασης (START, σύνδεση) */
+[data-theme=glass] .btn-gold,[data-theme=glass] .tb-btn.btn-primary{
+  background:rgba(255,255,255,.20);border:1px solid rgba(255,255,255,.32);color:#fff;font-weight:600;
+}
+[data-theme=glass] .btn-gold:hover,[data-theme=glass] .tb-btn.btn-primary:hover{background:rgba(255,255,255,.30);border-color:rgba(255,255,255,.45);color:#fff}
+[data-theme=glass] .btn-danger{--bs-btn-bg:rgba(239,68,68,.75);--bs-btn-border-color:rgba(255,160,160,.45);--bs-btn-hover-bg:rgba(239,68,68,.9);--bs-btn-hover-border-color:rgba(255,180,180,.6)}
+[data-theme=glass] .btn-light,[data-theme=glass] .btn-outline-secondary{
+  --bs-btn-color:#fff;--bs-btn-bg:rgba(255,255,255,.08);--bs-btn-border-color:rgba(255,255,255,.22);
+  --bs-btn-hover-color:#fff;--bs-btn-hover-bg:rgba(255,255,255,.18);--bs-btn-hover-border-color:rgba(255,255,255,.35);
+  --bs-btn-active-color:#fff;--bs-btn-active-bg:rgba(255,255,255,.24);--bs-btn-active-border-color:rgba(255,255,255,.4);
+}
+[data-theme=glass] .btn-outline-primary{
+  --bs-btn-color:rgba(255,255,255,.9);--bs-btn-border-color:rgba(255,255,255,.3);--bs-btn-bg:rgba(255,255,255,.04);
+  --bs-btn-hover-color:#fff;--bs-btn-hover-bg:rgba(255,255,255,.14);--bs-btn-hover-border-color:rgba(255,255,255,.45);
+  --bs-btn-active-color:#111827;--bs-btn-active-bg:#fff;--bs-btn-active-border-color:#fff;
+}
+[data-theme=glass] .btn-check:checked + .btn-outline-primary{color:#111827;background:#fff;border-color:#fff}
+[data-theme=glass] .btn-outline-danger{--bs-btn-color:#fca5a5;--bs-btn-border-color:rgba(252,165,165,.5);--bs-btn-hover-bg:rgba(239,68,68,.25);--bs-btn-hover-color:#fff;--bs-btn-hover-border-color:#fca5a5}
+[data-theme=glass] .btn-icon{color:rgba(255,255,255,.6)}
+[data-theme=glass] .btn-icon:hover,[data-theme=glass] .btn-icon:focus-visible{color:#fff;background:rgba(255,255,255,.12)}
+[data-theme=glass] .btn-icon.text-primary{color:var(--c-link)!important}
+[data-theme=glass] .tb-modes .btn-icon.active{color:#fff!important}
+[data-theme=glass] .btn-check:checked + .btn-bill{color:var(--c-yellow)!important}
+[data-theme=glass] .btn-close{filter:invert(1) grayscale(100%) brightness(200%)}
+[data-theme=glass] .nav-pills{--bs-nav-pills-link-active-bg:rgba(255,255,255,.22);--bs-nav-pills-link-active-color:#fff;--bs-nav-link-color:rgba(255,255,255,.8);--bs-nav-link-hover-color:#fff;--bs-nav-pills-border-radius:.85rem}
+[data-theme=glass] .nav-pills .nav-link.active{border:1px solid rgba(255,255,255,.3)}
+
+/* Μενού, modal, ειδοποιήσεις */
+[data-theme=glass] .dropdown-menu{
+  --bs-dropdown-bg:var(--glass-pop);--bs-dropdown-border-color:var(--glass-border);--bs-dropdown-color:#fff;
+  --bs-dropdown-link-color:rgba(255,255,255,.88);--bs-dropdown-link-hover-color:#fff;--bs-dropdown-link-hover-bg:rgba(255,255,255,.12);
+  --bs-dropdown-link-active-bg:rgba(255,255,255,.2);--bs-dropdown-header-color:rgba(255,255,255,.55);--bs-dropdown-divider-bg:rgba(255,255,255,.14);
+  --bs-dropdown-border-radius:1rem;
+  -webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);
+}
+[data-theme=glass] .modal-content{
+  --bs-modal-bg:var(--glass-pop);--bs-modal-border-color:var(--glass-border);--bs-modal-border-radius:1.5rem;
+  --bs-modal-header-border-color:var(--glass-line);--bs-modal-footer-border-color:var(--glass-line);
+  -webkit-backdrop-filter:blur(28px) saturate(160%);backdrop-filter:blur(28px) saturate(160%);
+}
+[data-theme=glass] .modal-backdrop{--bs-backdrop-bg:#06031a;--bs-backdrop-opacity:.45}
+[data-theme=glass] .alert{border-radius:1rem;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+[data-theme=glass] .alert-success{--bs-alert-bg:rgba(34,197,94,.18);--bs-alert-border-color:rgba(134,239,172,.4);--bs-alert-color:#d1fae5}
+[data-theme=glass] .alert-danger{--bs-alert-bg:rgba(239,68,68,.2);--bs-alert-border-color:rgba(252,165,165,.45);--bs-alert-color:#fee2e2}
+[data-theme=glass] .alert-warning{--bs-alert-bg:rgba(234,179,8,.18);--bs-alert-border-color:rgba(253,224,71,.45);--bs-alert-color:#fef3c7}
+[data-theme=glass] .bg-warning-subtle{background-color:rgba(234,179,8,.16)!important}
+[data-theme=glass] .border-warning-subtle{border-color:rgba(253,224,71,.4)!important}
+[data-theme=glass] .border-danger-subtle{border-color:rgba(252,165,165,.4)!important}
+[data-theme=glass] .text-warning-emphasis{color:#fde68a!important}
+[data-theme=glass] .text-danger-emphasis{color:#fca5a5!important}
+[data-theme=glass] .text-success-emphasis{color:#86efac!important}
+[data-theme=glass] .badge.text-bg-light{background:rgba(255,255,255,.14)!important;color:#fff!important;border-color:rgba(255,255,255,.25)!important}
+[data-theme=glass] .badge.text-bg-primary{background:rgba(96,165,250,.25)!important;color:#bfdbfe!important;border:1px solid rgba(96,165,250,.45)}
+[data-theme=glass] .badge.text-bg-secondary{background:rgba(255,255,255,.18)!important;color:#fff!important}
+[data-theme=glass] .list-group{--bs-list-group-bg:transparent;--bs-list-group-color:#fff;--bs-list-group-border-color:var(--glass-line);--bs-list-group-action-hover-bg:rgba(255,255,255,.07);--bs-list-group-action-hover-color:#fff;--bs-list-group-action-color:#fff}
+[data-theme=glass] .accordion{--bs-accordion-bg:transparent;--bs-accordion-color:#fff;--bs-accordion-border-color:var(--glass-line);--bs-accordion-btn-color:#fff;--bs-accordion-active-bg:rgba(255,255,255,.1);--bs-accordion-active-color:#fff;--bs-accordion-border-radius:1rem;--bs-accordion-inner-border-radius:1rem;--bs-accordion-btn-focus-box-shadow:0 0 0 .2rem rgba(255,255,255,.15)}
+[data-theme=glass] .pagination{--bs-pagination-bg:rgba(255,255,255,.06);--bs-pagination-color:#fff;--bs-pagination-border-color:var(--glass-border);--bs-pagination-hover-bg:rgba(255,255,255,.15);--bs-pagination-hover-color:#fff;--bs-pagination-active-bg:rgba(255,255,255,.28);--bs-pagination-active-border-color:rgba(255,255,255,.4)}
+[data-theme=glass] fieldset.border{border-color:var(--glass-line)!important;border-radius:1.1rem!important}
+[data-theme=glass] hr{border-color:rgba(255,255,255,.25)}
+[data-theme=glass] .form-text{color:rgba(255,255,255,.6)}
+
+/* Πίνακες */
+[data-theme=glass] .table{
+  --bs-table-bg:transparent;--bs-table-color:#fff;--bs-table-border-color:var(--glass-line);
+  --bs-table-hover-bg:rgba(255,255,255,.06);--bs-table-hover-color:#fff;--bs-table-striped-color:#fff;
+}
+[data-theme=glass] .table thead th,[data-theme=glass] .table tfoot th{background:rgba(255,255,255,.05);color:rgba(255,255,255,.7)}
+[data-theme=glass] .table tfoot th{color:#fff}
+[data-theme=glass] .table tr.row-muted td{color:rgba(255,255,255,.45)}
+[data-theme=glass] .table.summary tr.lvl1 td{background:rgba(255,255,255,.04)}
+[data-theme=glass] .table.summary tr.lvl2 td:first-child{color:rgba(255,255,255,.8)}
+[data-theme=glass] .table .weekend{background:rgba(255,255,255,.03)}
+[data-theme=glass] .progress{--bs-progress-bg:rgba(255,255,255,.12);--bs-progress-border-radius:99px}
+
+/* Χρονομέτρηση */
+[data-theme=glass] .trackbar{border-radius:1.5rem}
+[data-theme=glass] .tb-timer-idle{color:rgba(255,255,255,.45)}
+[data-theme=glass] .week-head{color:rgba(255,255,255,.75)}
+[data-theme=glass] .week-head strong,[data-theme=glass] .day-card .card-header strong{color:#fff}
+[data-theme=glass] .day-card .card-header{color:rgba(255,255,255,.75)}
+[data-theme=glass] .entry{border-top-color:var(--glass-line)}
+[data-theme=glass] .entry:hover{background:rgba(255,255,255,.04)}
+[data-theme=glass] .entry-desc:hover{color:var(--c-link)}
+[data-theme=glass] .entry-tags,[data-theme=glass] .entry-times{color:rgba(255,255,255,.65)}
+[data-theme=glass] .entry-bill{color:rgba(255,255,255,.25)}
+[data-theme=glass] .entry-bill.on{color:var(--c-yellow)!important}
+[data-theme=glass] .text-primary{color:var(--c-link)!important}
+/* Χρώματα projects σε σκούρο φόντο: λίγο πιο φωτεινά για να διαβάζονται */
+[data-theme=glass] .entry-project [style*="color"],[data-theme=glass] .small[style*="color"]{filter:brightness(1.55) saturate(1.1)}
+
+/* Γραφήματα / dashboard */
+[data-theme=glass] .stat-label{color:rgba(255,255,255,.65)}
+[data-theme=glass] .bc-axis span,[data-theme=glass] .bc-label,[data-theme=glass] .bc-val{color:rgba(255,255,255,.65)}
+[data-theme=glass] .bc-plot{border-bottom-color:rgba(255,255,255,.3)}
+[data-theme=glass] .bc-grid{border-top-color:rgba(255,255,255,.1)}
+[data-theme=glass] .bc-stack{box-shadow:0 0 18px rgba(255,255,255,.08)}
+
+/* Ημερολόγιο */
+[data-theme=glass] .cal-head{background:rgba(255,255,255,.05);border-bottom-color:var(--glass-line)}
+[data-theme=glass] .cal-dayhead,[data-theme=glass] .cal-col{border-left-color:var(--glass-line)}
+[data-theme=glass] .cal-dayhead.today strong{color:var(--c-link)}
+[data-theme=glass] .cal-hour{border-bottom-color:rgba(255,255,255,.06)}
+[data-theme=glass] .cal-gutter .cal-hour span{color:rgba(255,255,255,.55)}
+[data-theme=glass] .cal-ev{background:color-mix(in srgb,var(--c) 38%,rgba(255,255,255,.06));color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+[data-theme=glass] .cal-ev:hover{background:color-mix(in srgb,var(--c) 55%,rgba(255,255,255,.1))}
+[data-theme=glass] .cal-ev span{color:rgba(255,255,255,.8)}
+[data-theme=glass] .cal-now{border-top-color:#f87171}
+[data-theme=glass] .cal-now::before{background:#f87171}
+
+/* Σύνδεση / εγκατάσταση */
+[data-theme=glass] .auth-wrap{background:transparent}
+[data-theme=glass] .auth-card{border-radius:1.75rem}
+.auth-logo{display:block;width:100%;max-width:280px;height:auto;margin:0 auto}
+
+/* Χωρίς υποστήριξη backdrop-filter: πιο αδιαφανείς επιφάνειες */
+/* ---------- Λογότυπο πάνω & minimal λεπτομέρειες (v1.3) ---------- */
+.topbar-logo{height:28px;width:auto;display:block}
+.brand-sep{width:1px;height:22px;background:rgba(255,255,255,.3)}
+.brand-name{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:rgba(255,255,255,.75)}
+@media (max-width:575.98px){.topbar-logo{height:22px}}
+.brand-name{white-space:nowrap;max-width:42vw;overflow:hidden}
+.brand-group{display:inline-flex;align-items:center;color:#fff;font-weight:600}
+.brand-group .dot{width:.5rem;height:.5rem;margin-right:.4rem}
+.brand-dot-sep{opacity:.45}
+.topbar-user{color:#fff!important}
+.topbar-user-name{font-size:.95rem;font-weight:500;max-width:14rem;color:rgba(255,255,255,.9)}
+.topbar-user:hover .topbar-user-name{color:#fff}
+/* Κλασικό θέμα: σκούρα πάνω μπάρα ώστε να φαίνεται το λευκό logo */
+[data-theme=classic] .app-topbar{background:var(--app-navy);border-bottom:0}
+[data-theme=classic] .app-topbar .btn-link{color:#fff!important}
+[data-theme=classic] .app-topbar .avatar{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3)}
+[data-theme=classic] .running-pill{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff}
+[data-theme=classic] .running-pill .text-body{color:#fff!important}
+
+/* Κουμπί START/STOP: μικρό και λιτό */
+.tb-btn{min-width:84px;font-size:.85rem;font-weight:600;letter-spacing:.08em;padding:.42rem 1rem;border-radius:.7rem}
+.tb-timer{font-size:1.1rem}
+[data-theme=glass] .tb-btn.btn-danger{background:rgba(239,68,68,.22);border:1px solid rgba(252,165,165,.5);color:#fecaca}
+[data-theme=glass] .tb-btn.btn-danger:hover{background:rgba(239,68,68,.35);color:#fff}
+[data-theme=glass] .btn-primary:hover{transform:none}
+
+/* Πιο λιτό γυαλί: λεπτότερες σκιές, ίδιο ύψος στοιχείων */
+[data-theme=glass] .card,[data-theme=glass] .app-topbar,[data-theme=glass] .running-pill{box-shadow:0 4px 24px rgba(0,0,0,.14)}
+@media (min-width:992px){[data-theme=glass] .app-sidebar{box-shadow:0 4px 24px rgba(0,0,0,.14)}}
+[data-theme=glass] .app-sidebar .nav-link:hover{transform:none}
+[data-theme=glass] .app-sidebar .nav-link .bi{font-size:1.1rem}
+[data-theme=glass] .app-sidebar .nav{padding-top:.75rem!important}
+[data-theme=glass] .stat-value{font-weight:500}
+
+/* Χρώματα όπως στο demo */
+[data-theme=glass] .progress-bar.bg-success{background:linear-gradient(90deg,#4ade80,#3b82f6)!important}
+[data-theme=glass] .progress-bar.bg-warning{background:linear-gradient(90deg,#facc15,#f97316)!important}
+[data-theme=glass] .progress-bar.bg-danger{background:linear-gradient(90deg,#f97316,#ef4444)!important}
+[data-theme=glass] .text-danger{color:#fca5a5!important}
+.stat-icon{font-size:1.9rem;line-height:1;opacity:.95}
+.stat-icon.i-blue{color:#3b82f6}.stat-icon.i-green{color:#16a34a}.stat-icon.i-yellow{color:#ca8a04}.stat-icon.i-purple{color:#9333ea}
+[data-theme=glass] .stat-icon.i-blue{color:var(--c-blue)}[data-theme=glass] .stat-icon.i-green{color:var(--c-green)}
+[data-theme=glass] .stat-icon.i-yellow{color:var(--c-yellow)}[data-theme=glass] .stat-icon.i-purple{color:var(--c-purple)}
+
+/* ---------- Προσαρμοσμένα dropdowns ---------- */
+.tsel-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden;clip:rect(0 0 0 0);margin:0!important;padding:0!important;border:0!important}
+.tsel-btn{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:.1rem;cursor:pointer;min-height:calc(1.5em + .75rem + 2px)}
+.tsel-btn.form-select-sm{min-height:calc(1.5em + .5rem + 2px)}
+.tsel-btn .tsel-text{overflow:hidden;text-overflow:ellipsis}
+.tsel-btn.w-auto{display:inline-flex;width:auto!important;max-width:100%}
+.tsel-btn:not(.w-auto):not(.tb-select){width:100%}
+
+/* ---------- Φωτογραφία προφίλ ---------- */
+.avatar{overflow:hidden;flex:none}
+.avatar.has-img{background:transparent!important;padding:0}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar-sm{width:32px;height:32px;font-size:.75rem}
+.avatar-lg{width:46px;height:46px;font-size:1rem}
+.avatar-xl{width:88px;height:88px;font-size:1.6rem;border-width:2px!important}
+
+/* ---------- Στοίβα avatars ---------- */
+.avatar-stack{display:flex;align-items:center}
+.avatar-stack > span{display:inline-flex}
+.avatar-stack > span + span,.avatar-stack > .avatar-more{margin-left:-8px}
+.avatar-stack .avatar{box-shadow:0 0 0 2px #fff}
+[data-theme=glass] .avatar-stack .avatar{box-shadow:0 0 0 2px rgba(20,16,50,.85)}
+.avatar-more{background:#e9ecef;color:#495057;font-weight:600}
+[data-theme=glass] .avatar-more{background:rgba(255,255,255,.2);color:#fff}
+.avatar-sm.me-2{margin-right:.5rem}
+
+/* Το μενού (⋮) μιας καταχώρησης να βγαίνει πάνω από την επόμενη κάρτα */
+.day-card:focus-within,.day-card:has(.dropdown-menu.show){z-index:30}
+
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  [data-theme=glass] .card,[data-theme=glass] .app-topbar,[data-theme=glass] .app-sidebar{background:rgba(28,22,62,.88)!important}
+}
+@media (prefers-reduced-motion:reduce){
+  [data-theme=glass] .btn,[data-theme=glass] .app-sidebar .nav-link{transition:none;transform:none!important}
+}
+@media print{
+  [data-theme=glass] body{background:#fff!important}
+  [data-theme=glass] body::before{display:none}
+  [data-theme=glass] *{color:#000!important;background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;border-color:#ccc!important}
+}
+
+/* v1.8.5: το περιεχόμενο ευθυγραμμίζεται με την πάνω μπάρα σε κάθε πλάτος οθόνης */
+.app-main{max-width:none}
+@media (min-width:576px){[data-theme=glass] .app-main{padding-right:.75rem}}
+
+/* Λεπτή, διακριτική scrollbar στο ημερολόγιο */
+.cal-body{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.22) transparent}
+.cal-body::-webkit-scrollbar{width:8px}
+.cal-body::-webkit-scrollbar-track{background:transparent}
+.cal-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:8px}
+[data-theme=glass] .cal-body{scrollbar-color:rgba(255,255,255,.28) transparent}
+[data-theme=glass] .cal-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25)}
+
+/* Πελάτες: χρωματιστό σήμα, projects ως «chip», μπάρα ωρών */
+.client-mark{width:36px;height:36px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:.8rem;letter-spacing:.02em;color:#fff;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 60%,#000));box-shadow:0 4px 14px color-mix(in srgb,var(--c) 40%,transparent)}
+.chip-stat{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .7rem;border-radius:999px;font-size:.85rem;font-weight:500;background:rgba(0,0,0,.05);color:inherit;text-decoration:none}
+.chip-stat:hover{background:rgba(0,0,0,.1)}
+[data-theme=glass] .chip-stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff}
+[data-theme=glass] .chip-stat:hover{background:rgba(255,255,255,.18)}
+.hours-bar{height:4px;max-width:160px;border-radius:4px;background:rgba(0,0,0,.08);overflow:hidden;margin-top:.4rem}
+.hours-bar>span{display:block;height:100%;border-radius:4px;background:var(--c)}
+[data-theme=glass] .hours-bar{background:rgba(255,255,255,.12)}
+
+
+
+/* ======================================================================
+   v1.8.7: ενιαίο στυλ για ΟΛΑ τα μενού
+   (dropdowns του Bootstrap, προσαρμοσμένες επιλογές, tags, ημερομηνία)
+   ====================================================================== */
+:root{
+  --menu-bg:#fff;--menu-border:rgba(15,23,42,.12);--menu-fg:#1f2937;--menu-muted:#6b7280;
+  --menu-hover:rgba(15,23,42,.06);--menu-active:rgba(37,99,235,.10);--menu-active-fg:#1d4ed8;--menu-accent:#2563eb;
+  --menu-line:rgba(15,23,42,.08);--menu-shadow:0 12px 32px rgba(15,23,42,.16);--menu-radius:12px;
+}
+[data-theme=glass]{
+  --menu-bg:rgba(27,21,60,.97);--menu-border:rgba(255,255,255,.16);--menu-fg:rgba(255,255,255,.92);--menu-muted:rgba(255,255,255,.5);
+  --menu-hover:rgba(255,255,255,.08);--menu-active:rgba(139,123,255,.26);--menu-active-fg:#fff;--menu-accent:#7c6cf5;
+  --menu-line:rgba(255,255,255,.1);--menu-shadow:0 18px 50px rgba(0,0,0,.5);--menu-radius:14px;
+}
+.dropdown-menu,.tsel-menu,.tdate-menu{
+  --bs-dropdown-bg:var(--menu-bg);--bs-dropdown-border-color:var(--menu-border);--bs-dropdown-color:var(--menu-fg);
+  --bs-dropdown-link-color:var(--menu-fg);--bs-dropdown-link-hover-color:var(--menu-fg);--bs-dropdown-link-hover-bg:var(--menu-hover);
+  --bs-dropdown-link-active-bg:var(--menu-active);--bs-dropdown-link-active-color:var(--menu-active-fg);
+  --bs-dropdown-header-color:var(--menu-muted);--bs-dropdown-divider-bg:var(--menu-line);--bs-dropdown-border-radius:var(--menu-radius);
+  background:var(--menu-bg)!important;color:var(--menu-fg);border:1px solid var(--menu-border)!important;
+  border-radius:var(--menu-radius)!important;box-shadow:var(--menu-shadow)!important;padding:6px!important;
+  -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+}
+.dropdown-menu{min-width:220px}
+/* Γραμμές μενού */
+.dropdown-menu .dropdown-item,.tsel-menu .tsel-opt{
+  display:flex;align-items:center;gap:10px;width:100%;margin:0;min-height:36px;padding:8px 10px;border:0;border-radius:8px;
+  font-size:.9375rem;line-height:1.3;font-weight:400;color:var(--menu-fg);background:transparent;white-space:normal;text-align:left;
+}
+.dropdown-menu .dropdown-item:hover,.dropdown-menu .dropdown-item:focus-visible,
+.tsel-menu .tsel-opt:hover,.tsel-menu .tsel-opt:focus{background:var(--menu-hover);color:var(--menu-fg);outline:none}
+.dropdown-menu .dropdown-item.active,.tsel-menu .tsel-opt.active,
+[data-theme=glass] .tsel-opt.active,[data-theme=classic] .tsel-opt.active{background:var(--menu-active);color:var(--menu-active-fg);font-weight:500}
+.tsel-menu .tsel-opt.active::after,.dropdown-menu .dropdown-item.is-current::after{
+  content:"\f272";font-family:bootstrap-icons!important;margin-left:auto;padding-left:12px;font-size:1rem;line-height:1;color:var(--menu-active-fg)
+}
+.dropdown-menu .dropdown-item > .bi:first-child{width:18px;flex:none;text-align:center;margin:0!important;opacity:.8;font-size:1rem}
+.dropdown-menu .dropdown-item.item-danger{color:#ef4444}
+[data-theme=glass] .dropdown-menu .dropdown-item.item-danger{color:#fca5a5}
+.tsel-menu .dot{margin:0;flex:none}
+/* Τίτλοι ομάδων και διαχωριστικά */
+.dropdown-menu .dropdown-header,.tsel-menu .tsel-group{
+  display:block;padding:10px 10px 4px;margin:0;font-size:.6875rem;font-weight:600;line-height:1.2;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--menu-muted)
+}
+.tsel-menu .tsel-list > .tsel-group:not(:first-child){margin-top:6px;padding-top:12px;border-top:1px solid var(--menu-line)}
+.dropdown-menu .dropdown-divider{margin:6px 4px;border-top:1px solid var(--menu-line);opacity:1}
+.dropdown-menu .menu-profile{padding:10px 10px 8px}
+/* Λίστα με κύλιση */
+.tsel-list,.tagpicker-menu .tp-list{max-height:320px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--menu-line) transparent}
+.tsel-list::-webkit-scrollbar,.tagpicker-menu .tp-list::-webkit-scrollbar{width:8px}
+.tsel-list::-webkit-scrollbar-thumb,.tagpicker-menu .tp-list::-webkit-scrollbar-thumb{background:var(--menu-line);border-radius:8px}
+/* Αναζήτηση μέσα στα μενού */
+.tsel-search-wrap{position:relative;margin:0 0 6px}
+.tsel-search-wrap > .bi{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:.8rem;color:var(--menu-muted);pointer-events:none}
+.tsel-menu .tsel-search,.tagpicker-menu .tp-search{margin:0!important;width:100%!important;height:34px;padding:4px 10px 4px 30px!important;border-radius:8px!important;font-size:.875rem;
+  background:var(--menu-hover)!important;border:1px solid var(--menu-line)!important;color:var(--menu-fg)!important;box-shadow:none!important}
+.tsel-menu .tsel-search:focus,.tagpicker-menu .tp-search:focus{border-color:var(--menu-accent)!important}
+.tsel-menu .tsel-search::placeholder,.tagpicker-menu .tp-search::placeholder{color:var(--menu-muted)}
+.tsel-empty{padding:10px;font-size:.875rem;color:var(--menu-muted)}
+/* Tags */
+.tagpicker-menu{min-width:240px}
+.tagpicker-menu .tp-row{display:flex;align-items:center;gap:10px;margin:0;padding:7px 10px;min-height:36px;border-radius:8px;cursor:pointer}
+.tagpicker-menu .tp-row:hover{background:var(--menu-hover)}
+.tagpicker-menu .tp-row .form-check-input{float:none;margin:0;flex:none}
+.tagpicker-menu .tp-row .form-check-label{cursor:pointer;flex:1;color:var(--menu-fg)}
+/* Κουμπί και ημερολόγιο επιλογής ημερομηνίας */
+.tdate-btn{display:flex;align-items:center;gap:.6rem;cursor:pointer;text-align:left;white-space:nowrap;min-width:140px;font-variant-numeric:tabular-nums}
+.tdate-btn > .bi{margin-left:auto;opacity:.6;font-size:.9rem}
+.tdate-btn.is-empty .tdate-text{opacity:.55}
+.input-group > .tdate-btn{width:auto;flex:0 1 auto}
+.tsel-menu{z-index:2000;max-width:min(420px,calc(100vw - 16px));margin:0}
+.tdate-menu{z-index:2000;width:292px;padding:10px!important}
+.tdate-head{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 8px 6px}
+.tdate-title{font-weight:600;font-size:.95rem}
+.tdate-nav{display:flex;gap:2px}
+.tdate-nav button,.tdate-foot button{border:0;background:transparent;color:var(--menu-fg);border-radius:8px;height:32px;min-width:32px;display:inline-flex;align-items:center;justify-content:center}
+.tdate-nav button:hover,.tdate-foot button:hover{background:var(--menu-hover)}
+.tdate-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.tdate-wd{padding:4px 0 6px;text-align:center;font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--menu-muted)}
+.tdate-day{height:36px;border:0;border-radius:8px;background:transparent;color:var(--menu-fg);font-size:.875rem;font-variant-numeric:tabular-nums}
+.tdate-day.we{color:color-mix(in srgb,var(--menu-fg) 75%,transparent)}
+.tdate-day:hover,.tdate-day:focus{background:var(--menu-hover);outline:none}
+.tdate-day.out{color:var(--menu-muted);opacity:.55}
+.tdate-day.today{box-shadow:inset 0 0 0 1.5px var(--menu-accent);font-weight:600}
+.tdate-day.sel,.tdate-day.sel:hover{background:var(--menu-accent);color:#fff;font-weight:600;box-shadow:none}
+.tdate-foot{display:flex;justify-content:space-between;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--menu-line)}
+.tdate-foot button{padding:0 12px;font-size:.875rem;font-weight:500;color:var(--menu-active-fg)}
+[data-theme=classic] .tdate-foot button{color:var(--menu-accent)}
+
+/* v1.9.0: καμπανάκι ειδοποιήσεων */
+.notif-btn{position:relative;color:inherit}
+/* Κόκκινο σήμα αδιάβαστων: διαβάθμιση, «σκάει» όταν εμφανίζεται, απαλός παλμός όσο υπάρχουν αδιάβαστες */
+.notif-count{position:absolute;top:4px;right:2px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;
+  background:#ef4444;color:#fff;font-size:.62rem;font-weight:600;line-height:16px;text-align:center;font-variant-numeric:tabular-nums;
+  transform-origin:center;animation:notif-pop .4s cubic-bezier(.34,1.56,.64,1) both,notif-pulse 2.6s ease-out .6s infinite}
+.notif-count:empty{display:none}
+.notif.has-unread .notif-btn .bi{animation:notif-ring 1.1s ease-in-out .3s 1;transform-origin:50% 2px}
+@keyframes notif-pop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.2);opacity:1}100%{transform:scale(1)}}
+@keyframes notif-pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.45)}70%,100%{box-shadow:0 0 0 7px rgba(239,68,68,0)}}
+.notif.has-new .notif-btn .bi{animation:notif-ring 1s ease-in-out 2;transform-origin:50% 2px}
+@keyframes notif-ring{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}80%{transform:rotate(-4deg)}}
+.notif-menu{width:min(380px,calc(100vw - 24px))}
+.notif-head{display:flex;align-items:center;justify-content:space-between;padding:8px 10px 10px;font-weight:600;border-bottom:1px solid var(--menu-line);margin-bottom:6px}
+.notif-head-r{display:flex;align-items:center;gap:8px}
+.notif-clear{border:0;background:none;padding:2px 4px;font-size:.75rem;font-weight:500;color:var(--menu-muted);border-radius:6px;cursor:pointer}
+.notif-clear:hover{color:var(--menu-fg);background:var(--menu-hover)}
+.notif-clear:disabled{opacity:.5;cursor:default}
+.notif-empty[hidden]{display:none}
+.notif-new{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--menu-active);color:var(--menu-active-fg)}
+.notif-list{max-height:420px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--menu-line) transparent}
+.notif-item{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:10px;color:var(--menu-fg);text-decoration:none;position:relative}
+.notif-item:hover{background:var(--menu-hover);color:var(--menu-fg)}
+.notif-item.unread{background:color-mix(in srgb,var(--menu-active) 60%,transparent)}
+.notif-item.unread::after{content:"";position:absolute;top:16px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--menu-accent)}
+.notif-ico{flex:none;width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:1rem}
+.notif-ico.tone-info{background:rgba(59,130,246,.16);color:#3b82f6}
+.notif-ico.tone-warning{background:rgba(245,158,11,.18);color:#d97706}
+.notif-ico.tone-danger{background:rgba(239,68,68,.16);color:#ef4444}
+[data-theme=glass] .notif-ico.tone-info{color:#93c5fd}
+[data-theme=glass] .notif-ico.tone-warning{color:#fcd34d}
+[data-theme=glass] .notif-ico.tone-danger{color:#fca5a5}
+.notif-body{display:flex;flex-direction:column;gap:3px;min-width:0;padding-right:14px}
+.notif-text{font-size:.875rem;line-height:1.35}
+.notif-time{font-size:.75rem;color:var(--menu-muted)}
+.notif-empty{padding:28px 10px;text-align:center;color:var(--menu-muted);font-size:.875rem}
+.notif-empty .bi{font-size:1.6rem;display:block;margin-bottom:6px;opacity:.6}
+
+/* ---------- v1.9.1: ενεργοποίηση ειδοποιήσεων υπολογιστή (κάτω στο καμπανάκι) ---------- */
+.notif-push{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.65rem .9rem;margin-top:.25rem;border-top:1px solid var(--menu-line);font-size:.82rem;color:var(--menu-muted)}
+.notif-push[hidden]{display:none}
+.notif-push-text{display:flex;align-items:center;gap:.5rem;min-width:0}
+.notif-push-text .bi{font-size:1rem;flex:none}
+.notif-push .btn{flex:none;padding:.2rem .65rem;font-size:.78rem}
+.notif-push.is-denied{color:var(--menu-muted);font-size:.78rem}
+@media (prefers-reduced-motion:reduce){.notif-count,.notif.has-unread .notif-btn .bi,.notif.has-new .notif-btn .bi{animation:none}}
+
+/* ---------- Projects: η σημείωση σε δική της γραμμή κάτω από το project ---------- */
+.proj-group.has-note > tr:first-child > *{border-bottom-width:0}
+.proj-note-row > td{padding-top:0;padding-bottom:.7rem}
+.proj-note{display:flex;align-items:flex-start;gap:.4rem;padding-left:1.05rem;max-width:900px;font-size:.8rem;line-height:1.4;color:var(--bs-secondary-color);white-space:pre-line}
+.proj-note .bi{flex:none;font-size:.8rem;margin-top:.1rem;opacity:.8}
+.table-hover > .proj-group:hover > tr > *{--bs-table-bg-state:var(--bs-table-hover-bg);color:var(--bs-table-hover-color)}
+
+/* ---------- Dashboard: πίνακας ορίων ωρών (μικρή λίστα) ---------- */
+.limit-row{padding:.6rem 0;border-top:1px solid var(--bs-border-color-translucent)}
+.limit-row:first-of-type{border-top:0;padding-top:0}
+.limit-row:last-child{padding-bottom:0}
+.limit-name{color:inherit;min-width:0}
+.limit-name:hover .fw-medium{text-decoration:underline}
+.limit-bar{height:6px}
+.btn-x{flex:none;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:-4px;padding:0;border:0;border-radius:6px;background:none;color:var(--bs-secondary-color);font-size:.7rem;opacity:.7;cursor:pointer}
+.btn-x:hover{opacity:1;color:var(--bs-body-color);background:var(--bs-tertiary-bg)}
+.limit-row.is-leaving{opacity:0;transition:opacity .2s}
+.top-client{display:flex;align-items:center;gap:.65rem;padding:.4rem 0}
+.top-rank{width:1rem;flex:none;text-align:center;font-size:.75rem;font-weight:700;color:var(--bs-secondary-color)}
+.client-mark.client-mark-sm{width:28px;height:28px;border-radius:9px;font-size:.66rem;box-shadow:none}
+.min-w-0{min-width:0}
+.logo-preview{display:flex;align-items:center;justify-content:flex-start;padding:16px 18px;border-radius:12px;border:1px dashed var(--bs-border-color);background:var(--bs-tertiary-bg)}
+[data-theme=glass] .logo-preview{background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.18)}
+.logo-preview-img{max-height:56px;max-width:100%;width:auto;height:auto}
+.favicon-preview{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:12px;border:1px dashed var(--bs-border-color);background:var(--bs-tertiary-bg)}
+[data-theme=glass] .favicon-preview{background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.18)}
+.favicon-preview img{width:32px;height:32px;object-fit:contain}
+.dash-users td{padding-left:.6rem;padding-right:.6rem}.dash-users td:first-child{padding-left:1rem}.dash-users td:last-child{padding-right:1rem}
+
+
+/* ======================================================================
+   v1.9.11: 10 ανοιχτά φόντα στο Liquid glass και τα θέματα
+   Neomorphism / Minimalism με 10 συνθέσεις το καθένα.
+   Τα χρώματα κάθε σύνθεσης είναι μεταβλητές --s-*.
+   ====================================================================== */
+/* --- Νέα ανοιχτά φόντα (Liquid glass) --- */
+[data-theme=glass][data-bg=peach] body,[data-swatch=peach]{background-color:#fbe9df;background-image:radial-gradient(circle at 12% 8%,#ffbf9f 0%,transparent 55%),radial-gradient(circle at 88% 18%,#ffd3e2 0%,transparent 50%),radial-gradient(circle at 60% 100%,#fff0c4 0%,transparent 60%)}
+[data-theme=glass][data-bg=lavender] body,[data-swatch=lavender]{background-color:#eeeafb;background-image:radial-gradient(circle at 15% 5%,#c6b5f5 0%,transparent 55%),radial-gradient(circle at 90% 85%,#f3cdef 0%,transparent 55%),radial-gradient(circle at 85% 5%,#d3e3ff 0%,transparent 45%)}
+[data-theme=glass][data-bg=mint] body,[data-swatch=mint]{background-color:#e4f6ee;background-image:radial-gradient(circle at 10% 10%,#ade8d2 0%,transparent 55%),radial-gradient(circle at 90% 90%,#d4f2c2 0%,transparent 55%),radial-gradient(circle at 88% 8%,#c2e9f3 0%,transparent 45%)}
+[data-theme=glass][data-bg=sky] body,[data-swatch=sky]{background-color:#e6f1fc;background-image:radial-gradient(circle at 15% 0%,#aed3f7 0%,transparent 60%),radial-gradient(circle at 92% 80%,#d2dcff 0%,transparent 55%),radial-gradient(circle at 50% 100%,#e8f8ff 0%,transparent 50%)}
+[data-theme=glass][data-bg=sand] body,[data-swatch=sand]{background-color:#f6f0e5;background-image:radial-gradient(circle at 8% 90%,#e8d4b2 0%,transparent 60%),radial-gradient(circle at 90% 10%,#f5e3c9 0%,transparent 55%),radial-gradient(circle at 95% 95%,#dfe5cf 0%,transparent 45%)}
+[data-theme=glass][data-bg=blossom] body,[data-swatch=blossom]{background-color:#fcecf1;background-image:radial-gradient(circle at 88% 10%,#f6bfd2 0%,transparent 55%),radial-gradient(circle at 10% 90%,#fddce6 0%,transparent 55%),radial-gradient(circle at 10% 5%,#e4d4f7 0%,transparent 45%)}
+[data-theme=glass][data-bg=lemon] body,[data-swatch=lemon]{background-color:#fbf7df;background-image:radial-gradient(circle at 12% 12%,#f4e38e 0%,transparent 55%),radial-gradient(circle at 90% 90%,#dff0b8 0%,transparent 55%),radial-gradient(circle at 92% 5%,#ffe9c8 0%,transparent 45%)}
+[data-theme=glass][data-bg=ice] body,[data-swatch=ice]{background-color:#eff4f7;background-image:radial-gradient(circle at 15% 5%,#c9dfea 0%,transparent 55%),radial-gradient(circle at 90% 90%,#dbe4f4 0%,transparent 55%),radial-gradient(circle at 80% 15%,#f7fafb 0%,transparent 40%)}
+[data-theme=glass][data-bg=streaks-pastel] body,[data-swatch=streaks-pastel]{background-image:url("img/bg-streaks-pastel.jpg");background-color:#efe9fb}
+[data-theme=glass][data-bg=streaks-dawn] body,[data-swatch=streaks-dawn]{background-image:url("img/bg-streaks-dawn.jpg");background-color:#fdf1e6}
+/* --- Συνθέσεις Neomorphism --- */
+[data-theme=neo][data-bg=neo-cloud],[data-swatch=neo-cloud]{--s-ink:#292a2b;--s-ink-rgb:41,42,43;--s-dim:#727477;--s-acc:#4f6df5;--s-acc-rgb:79,109,245;--s-on:#ffffff;--s-bg:#e4e8ee;--s-panel:#e4e8ee;--s-hl:#f8f9fb;--s-sh:#c0c3c8;--s-line:#d2d5db;--s-paper:#e4e8ee;--s-link:#4f6df5;--s-link-rgb:79,109,245}
+[data-theme=neo][data-bg=neo-porcelain],[data-swatch=neo-porcelain]{--s-ink:#2b2b2b;--s-ink-rgb:43,43,43;--s-dim:#767778;--s-acc:#1f8f82;--s-acc-rgb:31,143,130;--s-on:#ffffff;--s-bg:#edeef1;--s-panel:#edeef1;--s-hl:#fafbfc;--s-sh:#c7c8ca;--s-line:#dadbde;--s-paper:#edeef1;--s-link:#1f8f82;--s-link-rgb:31,143,130}
+[data-theme=neo][data-bg=neo-lavender],[data-swatch=neo-lavender]{--s-ink:#2a292c;--s-ink-rgb:42,41,44;--s-dim:#74727a;--s-acc:#7353f0;--s-acc-rgb:115,83,240;--s-on:#ffffff;--s-bg:#e8e4f4;--s-panel:#e8e4f4;--s-hl:#f9f8fc;--s-sh:#c3c0cd;--s-line:#d5d2e0;--s-paper:#e8e4f4;--s-link:#7353f0;--s-link-rgb:115,83,240}
+[data-theme=neo][data-bg=neo-mint],[data-swatch=neo-mint]{--s-ink:#282b2a;--s-ink-rgb:40,43,42;--s-dim:#707875;--s-acc:#178a65;--s-acc-rgb:23,138,101;--s-on:#ffffff;--s-bg:#e0f0ea;--s-panel:#e0f0ea;--s-hl:#f7fbfa;--s-sh:#bccac5;--s-line:#ceddd7;--s-paper:#e0f0ea;--s-link:#178a65;--s-link-rgb:23,138,101}
+[data-theme=neo][data-bg=neo-peach],[data-swatch=neo-peach]{--s-ink:#2c2928;--s-ink-rgb:44,41,40;--s-dim:#7a736e;--s-acc:#d4622e;--s-acc-rgb:212,98,46;--s-on:#ffffff;--s-bg:#f4e6dd;--s-panel:#f4e6dd;--s-hl:#fcf9f6;--s-sh:#cdc1ba;--s-line:#e0d4cb;--s-paper:#f4e6dd;--s-link:#d4622e;--s-link-rgb:212,98,46}
+[data-theme=neo][data-bg=neo-sky],[data-swatch=neo-sky]{--s-ink:#282a2c;--s-ink-rgb:40,42,44;--s-dim:#70757a;--s-acc:#2672d6;--s-acc-rgb:38,114,214;--s-on:#ffffff;--s-bg:#dfeaf5;--s-panel:#dfeaf5;--s-hl:#f7fafc;--s-sh:#bbc5ce;--s-line:#cdd7e1;--s-paper:#dfeaf5;--s-link:#2672d6;--s-link-rgb:38,114,214}
+[data-theme=neo][data-bg=neo-sand],[data-swatch=neo-sand]{--s-ink:#2b2927;--s-ink-rgb:43,41,39;--s-dim:#76736c;--s-acc:#9c6a2e;--s-acc-rgb:156,106,46;--s-on:#ffffff;--s-bg:#ede6d9;--s-panel:#ede6d9;--s-hl:#faf9f6;--s-sh:#c7c1b6;--s-line:#dad4c8;--s-paper:#ede6d9;--s-link:#9c6a2e;--s-link-rgb:156,106,46}
+[data-theme=neo][data-bg=neo-rose],[data-swatch=neo-rose]{--s-ink:#2c292a;--s-ink-rgb:44,41,42;--s-dim:#7a7274;--s-acc:#c53d70;--s-acc-rgb:197,61,112;--s-on:#ffffff;--s-bg:#f3e3e9;--s-panel:#f3e3e9;--s-hl:#fcf8fa;--s-sh:#ccbfc4;--s-line:#e0d1d6;--s-paper:#f3e3e9;--s-link:#c53d70;--s-link-rgb:197,61,112}
+[data-theme=neo][data-bg=neo-graphite],[data-swatch=neo-graphite]{--s-ink:#eaeaeb;--s-ink-rgb:234,234,235;--s-dim:#9fa0a4;--s-acc:#86a8ff;--s-acc-rgb:134,168,255;--s-on:#111318;--s-bg:#2a2d34;--s-panel:#2a2d34;--s-hl:#3b3e44;--s-sh:#15161a;--s-line:#3b3e44;--s-paper:#2a2d34;--s-link:#86a8ff;--s-link-rgb:134,168,255}
+[data-theme=neo][data-bg=neo-night],[data-swatch=neo-night]{--s-ink:#e9e9eb;--s-ink-rgb:233,233,235;--s-dim:#9a9ca3;--s-acc:#5ddcbd;--s-acc-rgb:93,220,189;--s-on:#111318;--s-bg:#1f2433;--s-panel:#1f2433;--s-hl:#313643;--s-sh:#10121a;--s-line:#313643;--s-paper:#1f2433;--s-link:#5ddcbd;--s-link-rgb:93,220,189}
+/* --- Συνθέσεις Minimalism --- */
+[data-theme=minimal][data-bg=min-paper],[data-swatch=min-paper]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#151515;--s-acc-rgb:21,21,21;--s-on:#ffffff;--s-bg:#f7f7f6;--s-panel:#ffffff;--s-line:#e1e1e0;--s-paper:#ffffff;--s-link:#1f4fd1;--s-link-rgb:31,79,209}
+[data-theme=minimal][data-bg=min-cobalt],[data-swatch=min-cobalt]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#1d4ed8;--s-acc-rgb:29,78,216;--s-on:#ffffff;--s-bg:#ffffff;--s-panel:#ffffff;--s-line:#e4e6eb;--s-paper:#ffffff;--s-link:#1d4ed8;--s-link-rgb:29,78,216}
+[data-theme=minimal][data-bg=min-snow],[data-swatch=min-snow]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#2563eb;--s-acc-rgb:37,99,235;--s-on:#ffffff;--s-bg:#f4f7fb;--s-panel:#ffffff;--s-line:#dee1e4;--s-paper:#ffffff;--s-link:#2563eb;--s-link-rgb:37,99,235}
+[data-theme=minimal][data-bg=min-linen],[data-swatch=min-linen]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#9a4d24;--s-acc-rgb:154,77,36;--s-on:#ffffff;--s-bg:#f4f0e8;--s-panel:#fbf9f5;--s-line:#dedad3;--s-paper:#fbf9f5;--s-link:#9a4d24;--s-link-rgb:154,77,36}
+[data-theme=minimal][data-bg=min-sage],[data-swatch=min-sage]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#3a7552;--s-acc-rgb:58,117,82;--s-on:#ffffff;--s-bg:#eff3ee;--s-panel:#fbfcfa;--s-line:#d9ddd9;--s-paper:#fbfcfa;--s-link:#3a7552;--s-link-rgb:58,117,82}
+[data-theme=minimal][data-bg=min-rose],[data-swatch=min-rose]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#b83a62;--s-acc-rgb:184,58,98;--s-on:#ffffff;--s-bg:#f9f1f2;--s-panel:#ffffff;--s-line:#e3dbdc;--s-paper:#ffffff;--s-link:#b83a62;--s-link-rgb:184,58,98}
+[data-theme=minimal][data-bg=min-ochre],[data-swatch=min-ochre]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#a86f00;--s-acc-rgb:168,111,0;--s-on:#ffffff;--s-bg:#faf6ec;--s-panel:#ffffff;--s-line:#e4e0d7;--s-paper:#ffffff;--s-link:#a86f00;--s-link-rgb:168,111,0}
+[data-theme=minimal][data-bg=min-slate],[data-swatch=min-slate]{--s-ink:#16181c;--s-ink-rgb:22,24,28;--s-dim:#6b7079;--s-acc:#3f4b5c;--s-acc-rgb:63,75,92;--s-on:#ffffff;--s-bg:#eceff2;--s-panel:#f8f9fa;--s-line:#d7d9dc;--s-paper:#f8f9fa;--s-link:#3f4b5c;--s-link-rgb:63,75,92}
+[data-theme=minimal][data-bg=min-ink],[data-swatch=min-ink]{--s-ink:#ececee;--s-ink-rgb:236,236,238;--s-dim:#8d929b;--s-acc:#f2f2f2;--s-acc-rgb:242,242,242;--s-on:#111318;--s-bg:#111214;--s-panel:#18191c;--s-line:#292a2c;--s-paper:#18191c;--s-link:#9ec5ff;--s-link-rgb:158,197,255}
+[data-theme=minimal][data-bg=min-navy],[data-swatch=min-navy]{--s-ink:#ececee;--s-ink-rgb:236,236,238;--s-dim:#8d929b;--s-acc:#38bdf8;--s-acc-rgb:56,189,248;--s-on:#111318;--s-bg:#0e1628;--s-panel:#141d33;--s-line:#262d3e;--s-paper:#141d33;--s-link:#38bdf8;--s-link-rgb:56,189,248}
+
+/* --- Χρώματα κειμένων/γραμμών/πεδίων για ανοιχτό glass, Neomorphism, Minimalism (ίδια λίστα με το glass) --- */
+[data-theme=glass][data-tone=light] .text-body-secondary,[data-theme=neo] .text-body-secondary,[data-theme=minimal] .text-body-secondary{color:color-mix(in srgb,var(--s-ink) 72%,transparent)!important}
+[data-theme=glass][data-tone=light] .text-body-tertiary,[data-theme=neo] .text-body-tertiary,[data-theme=minimal] .text-body-tertiary{color:color-mix(in srgb,var(--s-ink) 50%,transparent)!important}
+[data-theme=glass][data-tone=light] .text-body,[data-theme=neo] .text-body,[data-theme=minimal] .text-body{color:var(--s-ink)!important}
+[data-theme=glass][data-tone=light] .bg-white,[data-theme=neo] .bg-white,[data-theme=minimal] .bg-white,[data-theme=glass][data-tone=light] .bg-light,[data-theme=neo] .bg-light,[data-theme=minimal] .bg-light{background-color:transparent!important}
+[data-theme=glass][data-tone=light] .card,[data-theme=neo] .card,[data-theme=minimal] .card,[data-theme=glass][data-tone=light] .app-topbar,[data-theme=neo] .app-topbar,[data-theme=minimal] .app-topbar,[data-theme=glass][data-tone=light] .running-pill,[data-theme=neo] .running-pill,[data-theme=minimal] .running-pill{background:var(--s-surface)!important;border:1px solid var(--s-border)!important}
+[data-theme=glass][data-tone=light] .card,[data-theme=neo] .card,[data-theme=minimal] .card{--bs-card-bg:transparent;--bs-card-color:var(--s-ink);--bs-card-cap-bg:var(--s-surface-2);--bs-card-border-color:var(--s-border);--bs-card-cap-color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .card-header,[data-theme=neo] .card-header,[data-theme=minimal] .card-header{background:var(--s-surface-2)!important;border-color:var(--s-line)}
+[data-theme=glass][data-tone=light] .card-footer,[data-theme=neo] .card-footer,[data-theme=minimal] .card-footer{border-color:var(--s-line)}
+[data-theme=glass][data-tone=light] .avatar,[data-theme=neo] .avatar,[data-theme=minimal] .avatar{background:color-mix(in srgb,var(--s-ink) 11%,transparent);border:1px solid color-mix(in srgb,var(--s-ink) 21%,transparent)}
+[data-theme=glass][data-tone=light] .app-sidebar,[data-theme=neo] .app-sidebar,[data-theme=minimal] .app-sidebar,[data-theme=glass][data-tone=light] .app-sidebar.offcanvas-lg,[data-theme=neo] .app-sidebar.offcanvas-lg,[data-theme=minimal] .app-sidebar.offcanvas-lg{background-color:var(--s-surface)!important;border:1px solid var(--s-border)!important;color:var(--s-ink)}
+@media (max-width:991.98px){[data-theme=glass][data-tone=light] .app-sidebar,[data-theme=neo] .app-sidebar,[data-theme=minimal] .app-sidebar{--bs-offcanvas-bg:var(--s-pop)}}
+[data-theme=glass][data-tone=light] .app-sidebar .nav-heading,[data-theme=neo] .app-sidebar .nav-heading,[data-theme=minimal] .app-sidebar .nav-heading{color:color-mix(in srgb,var(--s-ink) 55%,transparent)}
+[data-theme=glass][data-tone=light] .app-sidebar .nav-link,[data-theme=neo] .app-sidebar .nav-link,[data-theme=minimal] .app-sidebar .nav-link{color:color-mix(in srgb,var(--s-ink) 82%,transparent);border:1px solid transparent}
+[data-theme=glass][data-tone=light] .app-sidebar .nav-link:hover,[data-theme=neo] .app-sidebar .nav-link:hover,[data-theme=minimal] .app-sidebar .nav-link:hover{background:color-mix(in srgb,var(--s-ink) 6%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .app-sidebar .nav-link.active,[data-theme=neo] .app-sidebar .nav-link.active,[data-theme=minimal] .app-sidebar .nav-link.active{background:color-mix(in srgb,var(--s-ink) 12%,transparent);border-color:color-mix(in srgb,var(--s-ink) 18%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .sidebar-logo span,[data-theme=neo] .sidebar-logo span,[data-theme=minimal] .sidebar-logo span{color:color-mix(in srgb,var(--s-ink) 70%,transparent)}
+[data-theme=glass][data-tone=light] .form-control,[data-theme=neo] .form-control,[data-theme=minimal] .form-control,[data-theme=glass][data-tone=light] .form-select,[data-theme=neo] .form-select,[data-theme=minimal] .form-select{background-color:color-mix(in srgb,var(--s-ink) 4%,transparent);border-color:color-mix(in srgb,var(--s-ink) 13%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .form-control::placeholder,[data-theme=neo] .form-control::placeholder,[data-theme=minimal] .form-control::placeholder{color:color-mix(in srgb,var(--s-ink) 45%,transparent)}
+[data-theme=glass][data-tone=light] .form-control:focus,[data-theme=neo] .form-control:focus,[data-theme=minimal] .form-control:focus,[data-theme=glass][data-tone=light] .form-select:focus,[data-theme=neo] .form-select:focus,[data-theme=minimal] .form-select:focus{background-color:color-mix(in srgb,var(--s-ink) 7%,transparent);border-color:color-mix(in srgb,var(--s-ink) 27%,transparent);box-shadow:0 0 0 .2rem color-mix(in srgb,var(--s-ink) 7%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .form-select option,[data-theme=neo] .form-select option,[data-theme=minimal] .form-select option,[data-theme=glass][data-tone=light] .form-select optgroup,[data-theme=neo] .form-select optgroup,[data-theme=minimal] .form-select optgroup{background:var(--s-pop);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .form-control:disabled,[data-theme=neo] .form-control:disabled,[data-theme=minimal] .form-control:disabled,[data-theme=glass][data-tone=light] .form-select:disabled,[data-theme=neo] .form-select:disabled,[data-theme=minimal] .form-select:disabled{background-color:color-mix(in srgb,var(--s-ink) 2%,transparent);color:color-mix(in srgb,var(--s-ink) 40%,transparent)}
+[data-theme=glass][data-tone=light] .form-check-input,[data-theme=neo] .form-check-input,[data-theme=minimal] .form-check-input{background-color:color-mix(in srgb,var(--s-ink) 6%,transparent);border-color:color-mix(in srgb,var(--s-ink) 21%,transparent)}
+[data-theme=glass][data-tone=light] .trackbar .tb-desc,[data-theme=neo] .trackbar .tb-desc,[data-theme=minimal] .trackbar .tb-desc,[data-theme=glass][data-tone=light] .trackbar .tb-select,[data-theme=neo] .trackbar .tb-select,[data-theme=minimal] .trackbar .tb-select,[data-theme=glass][data-tone=light] .inline-edit .form-control,[data-theme=neo] .inline-edit .form-control,[data-theme=minimal] .inline-edit .form-control{background-color:transparent;border-color:transparent}
+[data-theme=glass][data-tone=light] .trackbar .tb-desc:hover,[data-theme=neo] .trackbar .tb-desc:hover,[data-theme=minimal] .trackbar .tb-desc:hover,[data-theme=glass][data-tone=light] .trackbar .tb-select:hover,[data-theme=neo] .trackbar .tb-select:hover,[data-theme=minimal] .trackbar .tb-select:hover,[data-theme=glass][data-tone=light] .inline-edit .form-control:hover,[data-theme=neo] .inline-edit .form-control:hover,[data-theme=minimal] .inline-edit .form-control:hover{border-color:color-mix(in srgb,var(--s-ink) 15%,transparent)}
+[data-theme=glass][data-tone=light] .trackbar .tb-desc:focus,[data-theme=neo] .trackbar .tb-desc:focus,[data-theme=minimal] .trackbar .tb-desc:focus,[data-theme=glass][data-tone=light] .inline-edit .form-control:focus,[data-theme=neo] .inline-edit .form-control:focus,[data-theme=minimal] .inline-edit .form-control:focus{background-color:color-mix(in srgb,var(--s-ink) 6%,transparent)}
+[data-theme=glass][data-tone=light] .trackbar .tb-select,[data-theme=neo] .trackbar .tb-select,[data-theme=minimal] .trackbar .tb-select{color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .btn-primary,[data-theme=neo] .btn-primary,[data-theme=minimal] .btn-primary{--bs-btn-color:var(--s-ink);--bs-btn-bg:color-mix(in srgb,var(--s-ink) 12%,transparent);--bs-btn-border-color:color-mix(in srgb,var(--s-ink) 19%,transparent);--bs-btn-hover-color:var(--s-ink);--bs-btn-hover-bg:color-mix(in srgb,var(--s-ink) 18%,transparent);--bs-btn-hover-border-color:color-mix(in srgb,var(--s-ink) 27%,transparent);--bs-btn-active-color:var(--s-ink);--bs-btn-active-bg:color-mix(in srgb,var(--s-ink) 22%,transparent);--bs-btn-active-border-color:color-mix(in srgb,var(--s-ink) 30%,transparent);--bs-btn-disabled-bg:color-mix(in srgb,var(--s-ink) 6%,transparent);--bs-btn-disabled-border-color:color-mix(in srgb,var(--s-ink) 12%,transparent)}
+[data-theme=glass][data-tone=light] .btn-gold,[data-theme=neo] .btn-gold,[data-theme=minimal] .btn-gold,[data-theme=glass][data-tone=light] .tb-btn.btn-primary,[data-theme=neo] .tb-btn.btn-primary,[data-theme=minimal] .tb-btn.btn-primary{background:color-mix(in srgb,var(--s-ink) 12%,transparent);border:1px solid color-mix(in srgb,var(--s-ink) 19%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .btn-gold:hover,[data-theme=neo] .btn-gold:hover,[data-theme=minimal] .btn-gold:hover,[data-theme=glass][data-tone=light] .tb-btn.btn-primary:hover,[data-theme=neo] .tb-btn.btn-primary:hover,[data-theme=minimal] .tb-btn.btn-primary:hover{background:color-mix(in srgb,var(--s-ink) 18%,transparent);border-color:color-mix(in srgb,var(--s-ink) 27%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .btn-light,[data-theme=neo] .btn-light,[data-theme=minimal] .btn-light,[data-theme=glass][data-tone=light] .btn-outline-secondary,[data-theme=neo] .btn-outline-secondary,[data-theme=minimal] .btn-outline-secondary{--bs-btn-color:var(--s-ink);--bs-btn-bg:color-mix(in srgb,var(--s-ink) 5%,transparent);--bs-btn-border-color:color-mix(in srgb,var(--s-ink) 13%,transparent);--bs-btn-hover-color:var(--s-ink);--bs-btn-hover-bg:color-mix(in srgb,var(--s-ink) 11%,transparent);--bs-btn-hover-border-color:color-mix(in srgb,var(--s-ink) 21%,transparent);--bs-btn-active-color:var(--s-ink);--bs-btn-active-bg:color-mix(in srgb,var(--s-ink) 14%,transparent);--bs-btn-active-border-color:color-mix(in srgb,var(--s-ink) 24%,transparent)}
+[data-theme=glass][data-tone=light] .btn-outline-primary,[data-theme=neo] .btn-outline-primary,[data-theme=minimal] .btn-outline-primary{--bs-btn-color:color-mix(in srgb,var(--s-ink) 90%,transparent);--bs-btn-border-color:color-mix(in srgb,var(--s-ink) 18%,transparent);--bs-btn-bg:color-mix(in srgb,var(--s-ink) 2%,transparent);--bs-btn-hover-color:var(--s-ink);--bs-btn-hover-bg:color-mix(in srgb,var(--s-ink) 8%,transparent);--bs-btn-hover-border-color:color-mix(in srgb,var(--s-ink) 27%,transparent);--bs-btn-active-color:var(--s-paper);--bs-btn-active-bg:var(--s-ink);--bs-btn-active-border-color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .btn-check:checked + .btn-outline-primary,[data-theme=neo] .btn-check:checked + .btn-outline-primary,[data-theme=minimal] .btn-check:checked + .btn-outline-primary{color:var(--s-paper);background:var(--s-ink);border-color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .btn-outline-danger,[data-theme=neo] .btn-outline-danger,[data-theme=minimal] .btn-outline-danger{--bs-btn-color:var(--s-danger);--bs-btn-hover-color:var(--s-ink);--bs-btn-hover-border-color:var(--s-danger)}
+[data-theme=glass][data-tone=light] .btn-icon,[data-theme=neo] .btn-icon,[data-theme=minimal] .btn-icon{color:color-mix(in srgb,var(--s-ink) 60%,transparent)}
+[data-theme=glass][data-tone=light] .btn-icon:hover,[data-theme=neo] .btn-icon:hover,[data-theme=minimal] .btn-icon:hover,[data-theme=glass][data-tone=light] .btn-icon:focus-visible,[data-theme=neo] .btn-icon:focus-visible,[data-theme=minimal] .btn-icon:focus-visible{color:var(--s-ink);background:color-mix(in srgb,var(--s-ink) 7%,transparent)}
+[data-theme=glass][data-tone=light] .tb-modes .btn-icon.active,[data-theme=neo] .tb-modes .btn-icon.active,[data-theme=minimal] .tb-modes .btn-icon.active{color:var(--s-ink)!important}
+[data-theme=glass][data-tone=light] .btn-close,[data-theme=neo] .btn-close,[data-theme=minimal] .btn-close{filter:var(--s-close-filter)}
+[data-theme=glass][data-tone=light] .nav-pills,[data-theme=neo] .nav-pills,[data-theme=minimal] .nav-pills{--bs-nav-pills-link-active-bg:color-mix(in srgb,var(--s-ink) 13%,transparent);--bs-nav-pills-link-active-color:var(--s-ink);--bs-nav-link-color:color-mix(in srgb,var(--s-ink) 80%,transparent);--bs-nav-link-hover-color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .nav-pills .nav-link.active,[data-theme=neo] .nav-pills .nav-link.active,[data-theme=minimal] .nav-pills .nav-link.active{border:1px solid color-mix(in srgb,var(--s-ink) 18%,transparent)}
+[data-theme=glass][data-tone=light] .dropdown-menu,[data-theme=neo] .dropdown-menu,[data-theme=minimal] .dropdown-menu{--bs-dropdown-bg:var(--s-pop);--bs-dropdown-border-color:var(--s-border);--bs-dropdown-color:var(--s-ink);--bs-dropdown-link-color:color-mix(in srgb,var(--s-ink) 88%,transparent);--bs-dropdown-link-hover-color:var(--s-ink);--bs-dropdown-link-hover-bg:color-mix(in srgb,var(--s-ink) 7%,transparent);--bs-dropdown-link-active-bg:color-mix(in srgb,var(--s-ink) 12%,transparent);--bs-dropdown-header-color:color-mix(in srgb,var(--s-ink) 55%,transparent);--bs-dropdown-divider-bg:color-mix(in srgb,var(--s-ink) 8%,transparent)}
+[data-theme=glass][data-tone=light] .modal-content,[data-theme=neo] .modal-content,[data-theme=minimal] .modal-content{--bs-modal-bg:var(--s-pop);--bs-modal-border-color:var(--s-border);--bs-modal-header-border-color:var(--s-line);--bs-modal-footer-border-color:var(--s-line)}
+[data-theme=glass][data-tone=light] .alert-success,[data-theme=neo] .alert-success,[data-theme=minimal] .alert-success{--bs-alert-color:var(--s-ok)}
+[data-theme=glass][data-tone=light] .alert-danger,[data-theme=neo] .alert-danger,[data-theme=minimal] .alert-danger{--bs-alert-color:var(--s-danger)}
+[data-theme=glass][data-tone=light] .alert-warning,[data-theme=neo] .alert-warning,[data-theme=minimal] .alert-warning{--bs-alert-color:var(--s-warn)}
+[data-theme=glass][data-tone=light] .text-warning-emphasis,[data-theme=neo] .text-warning-emphasis,[data-theme=minimal] .text-warning-emphasis{color:var(--s-warn)!important}
+[data-theme=glass][data-tone=light] .text-danger-emphasis,[data-theme=neo] .text-danger-emphasis,[data-theme=minimal] .text-danger-emphasis{color:var(--s-danger)!important}
+[data-theme=glass][data-tone=light] .text-success-emphasis,[data-theme=neo] .text-success-emphasis,[data-theme=minimal] .text-success-emphasis{color:var(--s-ok)!important}
+[data-theme=glass][data-tone=light] .badge.text-bg-light,[data-theme=neo] .badge.text-bg-light,[data-theme=minimal] .badge.text-bg-light{background:color-mix(in srgb,var(--s-ink) 8%,transparent)!important;color:var(--s-ink)!important;border-color:color-mix(in srgb,var(--s-ink) 15%,transparent)!important}
+[data-theme=glass][data-tone=light] .badge.text-bg-primary,[data-theme=neo] .badge.text-bg-primary,[data-theme=minimal] .badge.text-bg-primary{color:var(--s-link)!important}
+[data-theme=glass][data-tone=light] .badge.text-bg-secondary,[data-theme=neo] .badge.text-bg-secondary,[data-theme=minimal] .badge.text-bg-secondary{background:color-mix(in srgb,var(--s-ink) 11%,transparent)!important;color:var(--s-ink)!important}
+[data-theme=glass][data-tone=light] .list-group,[data-theme=neo] .list-group,[data-theme=minimal] .list-group{--bs-list-group-bg:transparent;--bs-list-group-color:var(--s-ink);--bs-list-group-border-color:var(--s-line);--bs-list-group-action-hover-bg:color-mix(in srgb,var(--s-ink) 4%,transparent);--bs-list-group-action-hover-color:var(--s-ink);--bs-list-group-action-color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .accordion,[data-theme=neo] .accordion,[data-theme=minimal] .accordion{--bs-accordion-bg:transparent;--bs-accordion-color:var(--s-ink);--bs-accordion-border-color:var(--s-line);--bs-accordion-btn-color:var(--s-ink);--bs-accordion-active-bg:color-mix(in srgb,var(--s-ink) 6%,transparent);--bs-accordion-active-color:var(--s-ink);--bs-accordion-btn-focus-box-shadow:0 0 0 .2rem color-mix(in srgb,var(--s-ink) 9%,transparent)}
+[data-theme=glass][data-tone=light] .pagination,[data-theme=neo] .pagination,[data-theme=minimal] .pagination{--bs-pagination-bg:color-mix(in srgb,var(--s-ink) 4%,transparent);--bs-pagination-color:var(--s-ink);--bs-pagination-border-color:var(--s-border);--bs-pagination-hover-bg:color-mix(in srgb,var(--s-ink) 9%,transparent);--bs-pagination-hover-color:var(--s-ink);--bs-pagination-active-bg:color-mix(in srgb,var(--s-ink) 17%,transparent);--bs-pagination-active-border-color:color-mix(in srgb,var(--s-ink) 24%,transparent)}
+[data-theme=glass][data-tone=light] fieldset.border,[data-theme=neo] fieldset.border,[data-theme=minimal] fieldset.border{border-color:var(--s-line)!important}
+[data-theme=glass][data-tone=light] hr,[data-theme=neo] hr,[data-theme=minimal] hr{border-color:color-mix(in srgb,var(--s-ink) 15%,transparent)}
+[data-theme=glass][data-tone=light] .form-text,[data-theme=neo] .form-text,[data-theme=minimal] .form-text{color:color-mix(in srgb,var(--s-ink) 60%,transparent)}
+[data-theme=glass][data-tone=light] .table,[data-theme=neo] .table,[data-theme=minimal] .table{--bs-table-bg:transparent;--bs-table-color:var(--s-ink);--bs-table-border-color:var(--s-line);--bs-table-hover-bg:color-mix(in srgb,var(--s-ink) 4%,transparent);--bs-table-hover-color:var(--s-ink);--bs-table-striped-color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .table thead th,[data-theme=neo] .table thead th,[data-theme=minimal] .table thead th,[data-theme=glass][data-tone=light] .table tfoot th,[data-theme=neo] .table tfoot th,[data-theme=minimal] .table tfoot th{background:color-mix(in srgb,var(--s-ink) 3%,transparent);color:color-mix(in srgb,var(--s-ink) 70%,transparent)}
+[data-theme=glass][data-tone=light] .table tfoot th,[data-theme=neo] .table tfoot th,[data-theme=minimal] .table tfoot th{color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .table tr.row-muted td,[data-theme=neo] .table tr.row-muted td,[data-theme=minimal] .table tr.row-muted td{color:color-mix(in srgb,var(--s-ink) 45%,transparent)}
+[data-theme=glass][data-tone=light] .table.summary tr.lvl1 td,[data-theme=neo] .table.summary tr.lvl1 td,[data-theme=minimal] .table.summary tr.lvl1 td{background:color-mix(in srgb,var(--s-ink) 2%,transparent)}
+[data-theme=glass][data-tone=light] .table.summary tr.lvl2 td:first-child,[data-theme=neo] .table.summary tr.lvl2 td:first-child,[data-theme=minimal] .table.summary tr.lvl2 td:first-child{color:color-mix(in srgb,var(--s-ink) 80%,transparent)}
+[data-theme=glass][data-tone=light] .table .weekend,[data-theme=neo] .table .weekend,[data-theme=minimal] .table .weekend{background:color-mix(in srgb,var(--s-ink) 2%,transparent)}
+[data-theme=glass][data-tone=light] .progress,[data-theme=neo] .progress,[data-theme=minimal] .progress{--bs-progress-bg:color-mix(in srgb,var(--s-ink) 7%,transparent)}
+[data-theme=glass][data-tone=light] .tb-timer-idle,[data-theme=neo] .tb-timer-idle,[data-theme=minimal] .tb-timer-idle{color:color-mix(in srgb,var(--s-ink) 45%,transparent)}
+[data-theme=glass][data-tone=light] .week-head,[data-theme=neo] .week-head,[data-theme=minimal] .week-head{color:color-mix(in srgb,var(--s-ink) 75%,transparent)}
+[data-theme=glass][data-tone=light] .week-head strong,[data-theme=neo] .week-head strong,[data-theme=minimal] .week-head strong,[data-theme=glass][data-tone=light] .day-card .card-header strong,[data-theme=neo] .day-card .card-header strong,[data-theme=minimal] .day-card .card-header strong{color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .day-card .card-header,[data-theme=neo] .day-card .card-header,[data-theme=minimal] .day-card .card-header{color:color-mix(in srgb,var(--s-ink) 75%,transparent)}
+[data-theme=glass][data-tone=light] .entry,[data-theme=neo] .entry,[data-theme=minimal] .entry{border-top-color:var(--s-line)}
+[data-theme=glass][data-tone=light] .entry:hover,[data-theme=neo] .entry:hover,[data-theme=minimal] .entry:hover{background:color-mix(in srgb,var(--s-ink) 2%,transparent)}
+[data-theme=glass][data-tone=light] .entry-tags,[data-theme=neo] .entry-tags,[data-theme=minimal] .entry-tags,[data-theme=glass][data-tone=light] .entry-times,[data-theme=neo] .entry-times,[data-theme=minimal] .entry-times{color:color-mix(in srgb,var(--s-ink) 65%,transparent)}
+[data-theme=glass][data-tone=light] .entry-bill,[data-theme=neo] .entry-bill,[data-theme=minimal] .entry-bill{color:color-mix(in srgb,var(--s-ink) 25%,transparent)}
+[data-theme=glass][data-tone=light] .entry-project [style*="color"],[data-theme=neo] .entry-project [style*="color"],[data-theme=minimal] .entry-project [style*="color"],[data-theme=glass][data-tone=light] .small[style*="color"],[data-theme=neo] .small[style*="color"],[data-theme=minimal] .small[style*="color"]{filter:var(--s-pfilter)}
+[data-theme=glass][data-tone=light] .stat-label,[data-theme=neo] .stat-label,[data-theme=minimal] .stat-label{color:color-mix(in srgb,var(--s-ink) 65%,transparent)}
+[data-theme=glass][data-tone=light] .bc-axis span,[data-theme=neo] .bc-axis span,[data-theme=minimal] .bc-axis span,[data-theme=glass][data-tone=light] .bc-label,[data-theme=neo] .bc-label,[data-theme=minimal] .bc-label,[data-theme=glass][data-tone=light] .bc-val,[data-theme=neo] .bc-val,[data-theme=minimal] .bc-val{color:color-mix(in srgb,var(--s-ink) 65%,transparent)}
+[data-theme=glass][data-tone=light] .bc-plot,[data-theme=neo] .bc-plot,[data-theme=minimal] .bc-plot{border-bottom-color:color-mix(in srgb,var(--s-ink) 18%,transparent)}
+[data-theme=glass][data-tone=light] .bc-grid,[data-theme=neo] .bc-grid,[data-theme=minimal] .bc-grid{border-top-color:color-mix(in srgb,var(--s-ink) 6%,transparent)}
+[data-theme=glass][data-tone=light] .bc-stack,[data-theme=neo] .bc-stack,[data-theme=minimal] .bc-stack{box-shadow:0 0 18px color-mix(in srgb,var(--s-ink) 5%,transparent)}
+[data-theme=glass][data-tone=light] .cal-head,[data-theme=neo] .cal-head,[data-theme=minimal] .cal-head{background:color-mix(in srgb,var(--s-ink) 3%,transparent);border-bottom-color:var(--s-line)}
+[data-theme=glass][data-tone=light] .cal-dayhead,[data-theme=neo] .cal-dayhead,[data-theme=minimal] .cal-dayhead,[data-theme=glass][data-tone=light] .cal-col,[data-theme=neo] .cal-col,[data-theme=minimal] .cal-col{border-left-color:var(--s-line)}
+[data-theme=glass][data-tone=light] .cal-hour,[data-theme=neo] .cal-hour,[data-theme=minimal] .cal-hour{border-bottom-color:color-mix(in srgb,var(--s-ink) 4%,transparent)}
+[data-theme=glass][data-tone=light] .cal-gutter .cal-hour span,[data-theme=neo] .cal-gutter .cal-hour span,[data-theme=minimal] .cal-gutter .cal-hour span{color:color-mix(in srgb,var(--s-ink) 55%,transparent)}
+[data-theme=glass][data-tone=light] .cal-ev,[data-theme=neo] .cal-ev,[data-theme=minimal] .cal-ev{background:color-mix(in srgb,var(--c) 38%,color-mix(in srgb,var(--s-ink) 4%,transparent));color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .cal-ev:hover,[data-theme=neo] .cal-ev:hover,[data-theme=minimal] .cal-ev:hover{background:color-mix(in srgb,var(--c) 55%,color-mix(in srgb,var(--s-ink) 6%,transparent))}
+[data-theme=glass][data-tone=light] .cal-ev span,[data-theme=neo] .cal-ev span,[data-theme=minimal] .cal-ev span{color:color-mix(in srgb,var(--s-ink) 80%,transparent)}
+[data-theme=glass][data-tone=light] .auth-wrap,[data-theme=neo] .auth-wrap,[data-theme=minimal] .auth-wrap{background:transparent}
+[data-theme=glass][data-tone=light] .tb-btn.btn-danger,[data-theme=neo] .tb-btn.btn-danger,[data-theme=minimal] .tb-btn.btn-danger{color:var(--s-danger)}
+[data-theme=glass][data-tone=light] .tb-btn.btn-danger:hover,[data-theme=neo] .tb-btn.btn-danger:hover,[data-theme=minimal] .tb-btn.btn-danger:hover{color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .text-danger,[data-theme=neo] .text-danger,[data-theme=minimal] .text-danger{color:var(--s-danger)!important}
+[data-theme=glass][data-tone=light] .avatar-stack .avatar,[data-theme=neo] .avatar-stack .avatar,[data-theme=minimal] .avatar-stack .avatar{box-shadow:0 0 0 2px var(--s-pop)}
+[data-theme=glass][data-tone=light] .avatar-more,[data-theme=neo] .avatar-more,[data-theme=minimal] .avatar-more{background:color-mix(in srgb,var(--s-ink) 12%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .cal-body,[data-theme=neo] .cal-body,[data-theme=minimal] .cal-body{scrollbar-color:color-mix(in srgb,var(--s-ink) 17%,transparent) transparent}
+[data-theme=glass][data-tone=light] .cal-body::-webkit-scrollbar-thumb,[data-theme=neo] .cal-body::-webkit-scrollbar-thumb,[data-theme=minimal] .cal-body::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--s-ink) 15%,transparent)}
+[data-theme=glass][data-tone=light] .chip-stat,[data-theme=neo] .chip-stat,[data-theme=minimal] .chip-stat{background:color-mix(in srgb,var(--s-ink) 6%,transparent);border:1px solid color-mix(in srgb,var(--s-ink) 9%,transparent);color:var(--s-ink)}
+[data-theme=glass][data-tone=light] .chip-stat:hover,[data-theme=neo] .chip-stat:hover,[data-theme=minimal] .chip-stat:hover{background:color-mix(in srgb,var(--s-ink) 11%,transparent)}
+[data-theme=glass][data-tone=light] .hours-bar,[data-theme=neo] .hours-bar,[data-theme=minimal] .hours-bar{background:color-mix(in srgb,var(--s-ink) 7%,transparent)}
+[data-theme=glass][data-tone=light] .dropdown-menu .dropdown-item.item-danger,[data-theme=neo] .dropdown-menu .dropdown-item.item-danger,[data-theme=minimal] .dropdown-menu .dropdown-item.item-danger{color:var(--s-danger)}
+[data-theme=glass][data-tone=light] .notif-ico.tone-info,[data-theme=neo] .notif-ico.tone-info,[data-theme=minimal] .notif-ico.tone-info{color:var(--s-link)}
+[data-theme=glass][data-tone=light] .notif-ico.tone-warning,[data-theme=neo] .notif-ico.tone-warning,[data-theme=minimal] .notif-ico.tone-warning{color:var(--s-warn)}
+[data-theme=glass][data-tone=light] .notif-ico.tone-danger,[data-theme=neo] .notif-ico.tone-danger,[data-theme=minimal] .notif-ico.tone-danger{color:var(--s-danger)}
+[data-theme=glass][data-tone=light] .logo-preview,[data-theme=neo] .logo-preview,[data-theme=minimal] .logo-preview{background:color-mix(in srgb,var(--s-ink) 8%,transparent);border-color:color-mix(in srgb,var(--s-ink) 11%,transparent)}
+[data-theme=glass][data-tone=light] .favicon-preview,[data-theme=neo] .favicon-preview,[data-theme=minimal] .favicon-preview{background:color-mix(in srgb,var(--s-ink) 8%,transparent);border-color:color-mix(in srgb,var(--s-ink) 11%,transparent)}
+
+/* --- Βασικές μεταβλητές για τα ανοιχτά φόντα του glass και για τα θέματα Neomorphism / Minimalism --- */
+[data-theme=glass][data-tone=light]{
+  --s-ink:#1c2130;--s-ink-rgb:28,33,48;--s-dim:rgba(28,33,48,.64);--s-acc:#4a63e0;--s-acc-rgb:74,99,224;--s-on:#fff;
+  --s-link:#3149c9;--s-link-rgb:49,73,201;--s-paper:#fff;
+  --s-surface:rgba(255,255,255,.5);--s-surface-2:rgba(255,255,255,.3);--s-surface-hover:rgba(255,255,255,.65);
+  --s-border:rgba(255,255,255,.75);--s-line:rgba(28,33,48,.09);--s-pop:rgba(255,255,255,.95);
+  --glass-pop:rgba(255,255,255,.95);
+  --bs-body-color:#1c2130;--bs-body-color-rgb:28,33,48;--bs-emphasis-color:#1c2130;--bs-heading-color:#1c2130;
+  --bs-secondary-color:rgba(28,33,48,.68);--bs-secondary-color-rgb:28,33,48;--bs-tertiary-color:rgba(28,33,48,.5);
+  --bs-border-color:rgba(28,33,48,.14);--bs-border-color-translucent:rgba(28,33,48,.12);
+  --bs-secondary-bg:rgba(255,255,255,.45);--bs-tertiary-bg:rgba(255,255,255,.3);
+  --bs-link-color:#3149c9;--bs-link-color-rgb:49,73,201;--bs-link-hover-color:#1c2130;--bs-link-hover-color-rgb:28,33,48;
+  --acc-1:#1c2130;--acc-2:#4a63e0;--acc-ink:#fff;
+  --c-blue:#2563eb;--c-green:#16a34a;--c-yellow:#ca8a04;--c-purple:#9333ea;--c-pink:#db2777;--c-link:#3149c9;
+  --menu-bg:rgba(255,255,255,.97);--menu-border:rgba(28,33,48,.1);--menu-fg:#1c2130;--menu-muted:rgba(28,33,48,.55);
+  --menu-hover:rgba(28,33,48,.06);--menu-active:rgba(74,99,224,.12);--menu-active-fg:#3149c9;--menu-accent:#4a63e0;
+  --menu-line:rgba(28,33,48,.08);--menu-shadow:0 16px 40px rgba(28,33,48,.18);
+  color-scheme:light;
+}
+[data-theme=glass][data-tone=light] body::before{background:none}
+[data-theme=glass][data-tone=light][data-bg^=streaks] body::before{background:rgba(255,255,255,.22)}
+[data-theme=glass][data-tone=light] .card,[data-theme=glass][data-tone=light] .app-topbar,[data-theme=glass][data-tone=light] .running-pill{box-shadow:0 4px 24px rgba(28,33,48,.08)}
+@media (min-width:992px){[data-theme=glass][data-tone=light] .app-sidebar{box-shadow:0 4px 24px rgba(28,33,48,.08)}}
+[data-theme=glass][data-tone=light] .modal-backdrop{--bs-backdrop-bg:#1c2130;--bs-backdrop-opacity:.25}
+
+/* Σημασιολογικά χρώματα ανά τόνο */
+:is([data-theme=glass],[data-theme=neo],[data-theme=minimal])[data-tone=light]{--s-danger:#b91c1c;--s-warn:#a16207;--s-ok:#15803d;--s-pfilter:none;--s-close-filter:none}
+:is([data-theme=neo],[data-theme=minimal])[data-tone=dark]{--s-danger:#fca5a5;--s-warn:#fde68a;--s-ok:#86efac;--s-pfilter:brightness(1.3) saturate(1.05);--s-close-filter:invert(1) grayscale(100%) brightness(200%)}
+
+/* Κοινά για Neomorphism και Minimalism (οι τιμές --s-* έρχονται από τη σύνθεση) */
+:is([data-theme=neo],[data-theme=minimal]){
+  --app-bg:var(--s-bg);
+  --s-surface:var(--s-panel);--s-surface-2:color-mix(in srgb,var(--s-ink) 3%,var(--s-panel));--s-surface-hover:color-mix(in srgb,var(--s-ink) 5%,var(--s-panel));
+  --s-border:var(--s-line);--s-pop:var(--s-panel);
+  --bs-body-bg:var(--s-bg);--bs-body-color:var(--s-ink);--bs-body-color-rgb:var(--s-ink-rgb);
+  --bs-emphasis-color:var(--s-ink);--bs-heading-color:var(--s-ink);
+  --bs-secondary-color:var(--s-dim);--bs-secondary-color-rgb:var(--s-ink-rgb);--bs-tertiary-color:color-mix(in srgb,var(--s-ink) 50%,transparent);
+  --bs-border-color:var(--s-line);--bs-border-color-translucent:var(--s-line);
+  --bs-secondary-bg:color-mix(in srgb,var(--s-ink) 6%,var(--s-panel));--bs-tertiary-bg:color-mix(in srgb,var(--s-ink) 3%,var(--s-panel));
+  --bs-link-color:var(--s-link);--bs-link-color-rgb:var(--s-link-rgb);--bs-link-hover-color:var(--s-ink);--bs-link-hover-color-rgb:var(--s-ink-rgb);
+  --bs-primary:var(--s-acc);--bs-primary-rgb:var(--s-acc-rgb);
+  --bs-focus-ring-color:color-mix(in srgb,var(--s-acc) 25%,transparent);
+  --acc-1:var(--s-acc);--acc-2:var(--s-acc);--acc-ink:var(--s-on);
+  --c-blue:var(--s-link);--c-green:var(--s-ok);--c-yellow:var(--s-warn);--c-purple:var(--s-acc);--c-pink:var(--s-danger);--c-link:var(--s-link);
+  --menu-bg:var(--s-pop);--menu-border:var(--s-line);--menu-fg:var(--s-ink);--menu-muted:var(--s-dim);
+  --menu-hover:color-mix(in srgb,var(--s-ink) 6%,transparent);--menu-active:color-mix(in srgb,var(--s-acc) 14%,transparent);
+  --menu-active-fg:var(--s-ink);--menu-accent:var(--s-acc);--menu-line:var(--s-line);
+}
+:is([data-theme=neo],[data-theme=minimal])[data-tone=dark]{color-scheme:dark}
+:is([data-theme=neo],[data-theme=minimal]) body{background:var(--s-bg)}
+:is([data-theme=neo],[data-theme=minimal]) .text-primary{color:var(--s-link)!important}
+:is([data-theme=neo],[data-theme=minimal]) .progress-bar:not([class*="bg-"]){background-color:var(--s-acc)}
+:is([data-theme=neo],[data-theme=minimal]) .form-check-input:checked{background-color:var(--s-acc);border-color:var(--s-acc)}
+:is([data-theme=neo],[data-theme=minimal]) .form-switch .form-check-input:checked{--bs-form-switch-bg:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e")}
+:is([data-theme=neo],[data-theme=minimal]) .cal-ev{background:color-mix(in srgb,var(--c) 22%,var(--s-panel));color:var(--s-ink);-webkit-backdrop-filter:none;backdrop-filter:none}
+:is([data-theme=neo],[data-theme=minimal]) .cal-ev:hover{background:color-mix(in srgb,var(--c) 34%,var(--s-panel))}
+:is([data-theme=neo],[data-theme=minimal]) .cal-ev span{color:var(--s-dim)}
+[data-theme=glass][data-tone=light] .cal-ev{background:color-mix(in srgb,var(--c) 24%,rgba(255,255,255,.6));color:#1c2130}
+[data-theme=glass][data-tone=light] .cal-ev:hover{background:color-mix(in srgb,var(--c) 36%,rgba(255,255,255,.6))}
+[data-theme=glass][data-tone=light] .cal-ev span{color:rgba(28,33,48,.7)}
+
+/* Πάνω μπάρα και λογότυπο: σκούρα κείμενα στους ανοιχτούς τόνους */
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .brand-sep{background:color-mix(in srgb,var(--s-ink) 22%,transparent)}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .brand-name{color:var(--s-dim)}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .brand-group{color:var(--s-ink)}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .topbar-user{color:var(--s-ink)!important}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .topbar-user-name,:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .topbar-user:hover .topbar-user-name{color:var(--s-ink)}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .app-sidebar .offcanvas-header{color:var(--s-ink);border-color:var(--s-line)!important}
+:is([data-theme=glass],[data-theme=neo],[data-theme=minimal])[data-tone=light] :is(.topbar-logo,.sidebar-logo img,.auth-logo){filter:invert(1) hue-rotate(180deg) saturate(1.4)}
+:is([data-theme=neo],[data-theme=minimal]) .auth-wrap{background:var(--s-bg)}
+
+/* Επιλογέας φόντου/σύνθεσης σε ανοιχτούς τόνους */
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .bg-swatch{border-color:color-mix(in srgb,var(--s-ink) 12%,transparent)}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .btn-check:checked + .bg-option .bg-swatch{border-color:var(--s-ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--s-ink) 14%,transparent)}
+:is([data-theme=glass][data-tone=light],[data-theme=neo],[data-theme=minimal]) .btn-check:focus-visible + .bg-option .bg-swatch{outline-color:var(--s-ink)}
+.bg-swatch.sw-neo,.bg-swatch.sw-minimal{position:relative;overflow:hidden;background:var(--s-bg)}
+.bg-swatch.sw-neo i,.bg-swatch.sw-minimal i{position:absolute;inset:22% 16%;display:block}
+.bg-swatch.sw-neo i{background:var(--s-bg);border-radius:.65rem;box-shadow:4px 4px 9px var(--s-sh),-4px -4px 9px var(--s-hl)}
+.bg-swatch.sw-minimal i{background:var(--s-panel);border:1px solid var(--s-line);border-radius:.3rem}
+.bg-swatch.sw-neo i::before,.bg-swatch.sw-minimal i::before,.bg-swatch.sw-neo i::after,.bg-swatch.sw-minimal i::after{content:"";position:absolute;left:14%;height:5px;border-radius:9px}
+.bg-swatch.sw-neo i::before,.bg-swatch.sw-minimal i::before{top:32%;width:55%;background:var(--s-acc)}
+.bg-swatch.sw-neo i::after,.bg-swatch.sw-minimal i::after{top:58%;width:35%;background:var(--s-dim);opacity:.45}
+
+/* =====================================================================
+   Θέμα «Neomorphism»: ανάγλυφες επιφάνειες στο ίδιο χρώμα με το φόντο
+   ===================================================================== */
+[data-theme=neo]{
+  --app-top:64px;--s-surface-2:transparent;
+  --s-raise:6px 6px 14px var(--s-sh),-6px -6px 14px var(--s-hl);
+  --s-raise-sm:3px 3px 7px var(--s-sh),-3px -3px 7px var(--s-hl);
+  --s-press:inset 3px 3px 7px var(--s-sh),inset -3px -3px 7px var(--s-hl);
+  --menu-shadow:var(--s-raise);
+}
+[data-theme=neo] .card,[data-theme=neo] .app-topbar,[data-theme=neo] .running-pill,[data-theme=neo] .app-sidebar,[data-theme=neo] .app-sidebar.offcanvas-lg{
+  background:var(--s-bg)!important;border:0!important;box-shadow:var(--s-raise)!important;-webkit-backdrop-filter:none;backdrop-filter:none
+}
+[data-theme=neo] .card{--bs-card-border-radius:1.4rem;--bs-card-inner-border-radius:1.4rem;--bs-card-cap-bg:transparent}
+[data-theme=neo] .card-header{background:transparent!important;border-color:var(--s-line)}
+[data-theme=neo] .card > .table-responsive:first-child,[data-theme=neo] .card > .table-responsive:last-child{border-radius:inherit}
+@media (min-width:576px){
+  [data-theme=neo] .app-topbar{top:.9rem;left:.9rem;right:.9rem;border-radius:1.25rem}
+  [data-theme=neo] .app-main{padding-top:calc(var(--app-top) + 2.6rem);padding-right:1rem}
+}
+@media (min-width:992px){
+  [data-theme=neo] .app-sidebar{top:calc(var(--app-top) + 2rem);left:.9rem;bottom:.9rem;border-radius:1.5rem}
+  [data-theme=neo] .app-main{margin-left:calc(var(--app-side) + 1.1rem)}
+}
+[data-theme=neo] .running-pill{box-shadow:var(--s-press)!important}
+[data-theme=neo] .avatar{background:var(--s-bg);border:0;color:var(--s-ink);box-shadow:var(--s-raise-sm)}
+[data-theme=neo] .avatar.has-img{box-shadow:var(--s-raise-sm)}
+[data-theme=neo] .app-sidebar .nav{padding:.75rem!important}
+[data-theme=neo] .app-sidebar .nav-heading{padding:1rem .75rem .35rem}
+[data-theme=neo] .app-sidebar .nav-link{border:0;border-radius:.9rem;padding:.65rem .85rem;margin-bottom:.3rem}
+[data-theme=neo] .app-sidebar .nav-link:hover{background:transparent;color:var(--s-acc)}
+[data-theme=neo] .app-sidebar .nav-link.active{background:var(--s-bg);box-shadow:var(--s-press);color:var(--s-acc);font-weight:600}
+/* Φόρμες: «σκαμμένα» πεδία */
+[data-theme=neo] .form-control,[data-theme=neo] .form-select{background-color:var(--s-bg);border-color:transparent;box-shadow:var(--s-press);border-radius:.85rem}
+[data-theme=neo] .form-control:focus,[data-theme=neo] .form-select:focus{background-color:var(--s-bg);border-color:transparent;box-shadow:var(--s-press),0 0 0 .2rem color-mix(in srgb,var(--s-acc) 30%,transparent)}
+[data-theme=neo] .trackbar .tb-desc,[data-theme=neo] .trackbar .tb-select,[data-theme=neo] .inline-edit .form-control{box-shadow:none}
+[data-theme=neo] .trackbar .tb-desc:focus,[data-theme=neo] .inline-edit .form-control:focus{box-shadow:var(--s-press)}
+[data-theme=neo] .trackbar .tb-select{color:var(--s-acc)}
+[data-theme=neo] .input-group > .btn{border-radius:.85rem}
+[data-theme=neo] .input-group > :not(:first-child):not(.dropdown-menu){border-top-left-radius:0;border-bottom-left-radius:0}
+[data-theme=neo] .input-group > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu){border-top-right-radius:0;border-bottom-right-radius:0}
+[data-theme=neo] .form-check-input{background-color:var(--s-bg);border-color:transparent;box-shadow:var(--s-press)}
+[data-theme=neo] .form-check-input:checked{background-color:var(--s-acc);box-shadow:var(--s-raise-sm)}
+/* Κουμπιά */
+[data-theme=neo] .btn{border-radius:.85rem}
+[data-theme=neo] .btn-primary{
+  --bs-btn-color:var(--s-on);--bs-btn-bg:var(--s-acc);--bs-btn-border-color:var(--s-acc);
+  --bs-btn-hover-color:var(--s-on);--bs-btn-hover-bg:color-mix(in srgb,var(--s-acc) 88%,#000);--bs-btn-hover-border-color:color-mix(in srgb,var(--s-acc) 88%,#000);
+  --bs-btn-active-color:var(--s-on);--bs-btn-active-bg:color-mix(in srgb,var(--s-acc) 80%,#000);--bs-btn-active-border-color:color-mix(in srgb,var(--s-acc) 80%,#000);
+  --bs-btn-disabled-color:var(--s-on);--bs-btn-disabled-bg:var(--s-acc);--bs-btn-disabled-border-color:var(--s-acc);
+  box-shadow:var(--s-raise-sm)
+}
+[data-theme=neo] .btn-gold,[data-theme=neo] .tb-btn.btn-primary{background:var(--s-acc);border-color:var(--s-acc);color:var(--s-on)}
+[data-theme=neo] .btn-gold:hover,[data-theme=neo] .tb-btn.btn-primary:hover{background:color-mix(in srgb,var(--s-acc) 88%,#000);border-color:color-mix(in srgb,var(--s-acc) 88%,#000);color:var(--s-on)}
+[data-theme=neo] .btn-danger{box-shadow:var(--s-raise-sm)}
+[data-theme=neo] .btn-light,[data-theme=neo] .btn-outline-secondary,[data-theme=neo] .btn-outline-primary{
+  --bs-btn-color:var(--s-ink);--bs-btn-bg:var(--s-bg);--bs-btn-border-color:transparent;
+  --bs-btn-hover-color:var(--s-acc);--bs-btn-hover-bg:var(--s-bg);--bs-btn-hover-border-color:transparent;
+  --bs-btn-active-color:var(--s-acc);--bs-btn-active-bg:var(--s-bg);--bs-btn-active-border-color:transparent;
+  box-shadow:var(--s-raise-sm)
+}
+[data-theme=neo] .btn-check:checked + .btn-outline-primary,[data-theme=neo] .btn-outline-primary.active{color:var(--s-acc);background:var(--s-bg);border-color:transparent;box-shadow:var(--s-press)}
+[data-theme=neo] .btn-outline-danger{box-shadow:var(--s-raise-sm);border-color:transparent}
+[data-theme=neo] .btn-icon:hover,[data-theme=neo] .btn-icon:focus-visible{background:transparent;color:var(--s-acc);box-shadow:var(--s-raise-sm)}
+[data-theme=neo] .tb-modes .btn-icon.active{color:var(--s-acc)!important;box-shadow:var(--s-press)}
+[data-theme=neo] .nav-pills{--bs-nav-pills-link-active-bg:var(--s-bg);--bs-nav-pills-link-active-color:var(--s-acc);--bs-nav-pills-border-radius:.85rem}
+[data-theme=neo] .nav-pills .nav-link.active{border:0;box-shadow:var(--s-press)}
+/* Μπάρες, chips, μενού, παράθυρα */
+[data-theme=neo] .progress,[data-theme=neo] .hours-bar{background:var(--s-bg);box-shadow:var(--s-press)}
+[data-theme=neo] .progress{--bs-progress-height:.6rem}
+[data-theme=neo] .chip-stat{background:var(--s-bg);border:0;box-shadow:var(--s-raise-sm)}
+[data-theme=neo] .chip-stat:hover{background:var(--s-bg);box-shadow:var(--s-press)}
+[data-theme=neo] .dropdown-menu,[data-theme=neo] .tsel-menu,[data-theme=neo] .tdate-menu{border-color:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-theme=neo] .modal-content{--bs-modal-bg:var(--s-bg);--bs-modal-border-color:transparent;--bs-modal-border-radius:1.4rem;box-shadow:var(--s-raise)}
+[data-theme=neo] .table thead th,[data-theme=neo] .table tfoot th{background:transparent}
+[data-theme=neo] .alert{border-radius:1rem}
+[data-theme=neo] fieldset.border{border-color:var(--s-line)!important;border-radius:1.1rem!important}
+[data-theme=neo] .avatar-stack .avatar{box-shadow:0 0 0 2px var(--s-bg)}
+[data-theme=neo] .logo-preview,[data-theme=neo] .favicon-preview{background:var(--s-bg);border:0;box-shadow:var(--s-press)}
+
+/* =====================================================================
+   Θέμα «Minimalism»: επίπεδες επιφάνειες, λεπτές γραμμές, χωρίς σκιές
+   ===================================================================== */
+[data-theme=minimal]{--menu-shadow:0 10px 30px rgba(15,20,30,.10);--menu-radius:10px}
+[data-theme=minimal][data-tone=dark]{--menu-shadow:0 10px 30px rgba(0,0,0,.45)}
+[data-theme=minimal] .card,[data-theme=minimal] .running-pill{
+  background:var(--s-panel)!important;border:1px solid var(--s-line)!important;box-shadow:none!important;-webkit-backdrop-filter:none;backdrop-filter:none
+}
+[data-theme=minimal] .card{--bs-card-border-radius:.6rem;--bs-card-inner-border-radius:calc(.6rem - 1px)}
+[data-theme=minimal] .card-header{border-color:var(--s-line)}
+[data-theme=minimal] .app-topbar{background:var(--s-bg)!important;border:0!important;border-bottom:1px solid var(--s-line)!important;box-shadow:none!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-theme=minimal] .app-sidebar,[data-theme=minimal] .app-sidebar.offcanvas-lg{background-color:var(--s-bg)!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+@media (min-width:992px){[data-theme=minimal] .app-sidebar{border-right:1px solid var(--s-line)!important}}
+[data-theme=minimal] .avatar{background:color-mix(in srgb,var(--s-ink) 8%,var(--s-panel));border:0;color:var(--s-ink)}
+[data-theme=minimal] .app-sidebar .nav-link{border:0;border-left:2px solid transparent;border-radius:0;margin:0}
+[data-theme=minimal] .app-sidebar .nav-link:hover{background:color-mix(in srgb,var(--s-ink) 4%,transparent);color:var(--s-ink)}
+[data-theme=minimal] .app-sidebar .nav-link.active{background:transparent;border-left-color:var(--s-acc);color:var(--s-ink);font-weight:600}
+/* Φόρμες */
+[data-theme=minimal] .form-control,[data-theme=minimal] .form-select{background-color:var(--s-panel);border-color:var(--s-line);border-radius:.45rem}
+[data-theme=minimal] .form-control:focus,[data-theme=minimal] .form-select:focus{background-color:var(--s-panel);border-color:var(--s-acc);box-shadow:0 0 0 .2rem color-mix(in srgb,var(--s-acc) 16%,transparent)}
+[data-theme=minimal] .trackbar .tb-desc,[data-theme=minimal] .trackbar .tb-select,[data-theme=minimal] .inline-edit .form-control{background-color:transparent;border-color:transparent}
+[data-theme=minimal] .trackbar .tb-select{color:var(--s-link)}
+[data-theme=minimal] .form-check-input{background-color:var(--s-panel);border-color:color-mix(in srgb,var(--s-ink) 25%,transparent)}
+/* Κουμπιά */
+[data-theme=minimal] .btn{border-radius:.45rem}
+[data-theme=minimal] .btn-primary{
+  --bs-btn-color:var(--s-on);--bs-btn-bg:var(--s-acc);--bs-btn-border-color:var(--s-acc);
+  --bs-btn-hover-color:var(--s-on);--bs-btn-hover-bg:color-mix(in srgb,var(--s-acc) 86%,var(--s-ink));--bs-btn-hover-border-color:color-mix(in srgb,var(--s-acc) 86%,var(--s-ink));
+  --bs-btn-active-color:var(--s-on);--bs-btn-active-bg:color-mix(in srgb,var(--s-acc) 78%,var(--s-ink));--bs-btn-active-border-color:color-mix(in srgb,var(--s-acc) 78%,var(--s-ink));
+  --bs-btn-disabled-color:var(--s-on);--bs-btn-disabled-bg:var(--s-acc);--bs-btn-disabled-border-color:var(--s-acc)
+}
+[data-theme=minimal] .btn-gold,[data-theme=minimal] .tb-btn.btn-primary{background:var(--s-acc);border:1px solid var(--s-acc);color:var(--s-on)}
+[data-theme=minimal] .btn-gold:hover,[data-theme=minimal] .tb-btn.btn-primary:hover{background:color-mix(in srgb,var(--s-acc) 86%,var(--s-ink));border-color:color-mix(in srgb,var(--s-acc) 86%,var(--s-ink));color:var(--s-on)}
+[data-theme=minimal] .btn-light,[data-theme=minimal] .btn-outline-secondary{
+  --bs-btn-color:var(--s-ink);--bs-btn-bg:var(--s-panel);--bs-btn-border-color:var(--s-line);
+  --bs-btn-hover-color:var(--s-ink);--bs-btn-hover-bg:color-mix(in srgb,var(--s-ink) 5%,var(--s-panel));--bs-btn-hover-border-color:color-mix(in srgb,var(--s-ink) 22%,transparent);
+  --bs-btn-active-color:var(--s-ink);--bs-btn-active-bg:color-mix(in srgb,var(--s-ink) 8%,var(--s-panel));--bs-btn-active-border-color:color-mix(in srgb,var(--s-ink) 25%,transparent)
+}
+[data-theme=minimal] .btn-outline-primary{
+  --bs-btn-color:var(--s-ink);--bs-btn-bg:transparent;--bs-btn-border-color:var(--s-line);
+  --bs-btn-hover-color:var(--s-ink);--bs-btn-hover-bg:color-mix(in srgb,var(--s-ink) 5%,transparent);--bs-btn-hover-border-color:color-mix(in srgb,var(--s-ink) 25%,transparent);
+  --bs-btn-active-color:var(--s-on);--bs-btn-active-bg:var(--s-acc);--bs-btn-active-border-color:var(--s-acc)
+}
+[data-theme=minimal] .btn-check:checked + .btn-outline-primary,[data-theme=minimal] .btn-outline-primary.active{color:var(--s-on);background:var(--s-acc);border-color:var(--s-acc)}
+[data-theme=minimal] .tb-modes .btn-icon.active{color:var(--s-acc)!important}
+[data-theme=minimal] .nav-pills{--bs-nav-pills-link-active-bg:var(--s-acc);--bs-nav-pills-link-active-color:var(--s-on);--bs-nav-pills-border-radius:.45rem}
+[data-theme=minimal] .nav-pills .nav-link.active{border:0}
+/* Μπάρες, chips, μενού, παράθυρα */
+[data-theme=minimal] .progress{--bs-progress-height:.35rem;--bs-progress-bg:var(--s-line)}
+[data-theme=minimal] .hours-bar{background:var(--s-line)}
+[data-theme=minimal] .chip-stat{background:transparent;border:1px solid var(--s-line)}
+[data-theme=minimal] .chip-stat:hover{background:color-mix(in srgb,var(--s-ink) 5%,transparent)}
+[data-theme=minimal] .dropdown-menu,[data-theme=minimal] .tsel-menu,[data-theme=minimal] .tdate-menu{-webkit-backdrop-filter:none;backdrop-filter:none}
+[data-theme=minimal] .modal-content{--bs-modal-bg:var(--s-panel);--bs-modal-border-color:var(--s-line);--bs-modal-border-radius:.6rem}
+[data-theme=minimal] .table thead th,[data-theme=minimal] .table tfoot th{background:transparent}
+[data-theme=minimal] .alert{border-radius:.45rem}
+[data-theme=minimal] .avatar-stack .avatar{box-shadow:0 0 0 2px var(--s-panel)}
+
+/* STOP: λευκά γράμματα πάνω στο κόκκινο */
+[data-theme=neo] .tb-btn.btn-danger,[data-theme=minimal] .tb-btn.btn-danger{color:#fff}
+[data-theme=glass][data-tone=light] .avatar{color:var(--s-ink)}
+:is([data-theme=neo],[data-theme=minimal]) .badge.text-bg-primary{background:color-mix(in srgb,var(--s-acc) 16%,transparent)!important;color:var(--s-link)!important;border:1px solid color-mix(in srgb,var(--s-acc) 35%,transparent)}
+:is([data-theme=glass],[data-theme=neo],[data-theme=minimal])[data-tone=light] .btn-close-white{filter:none}
+
+/* ======================================================================
+   v1.9.12: dashboard χωρίς σύνολα ανά άτομο, καθαρότερα όρια ωρών, tooltips
+   ====================================================================== */
+.flex-none{flex:none}
+.stat-value-sm{font-size:1.35rem;line-height:1.45}
+.stat-icon.i-red{color:#dc2626}
+[data-theme=glass] .stat-icon.i-red{color:#f87171}
+/* Όρια ωρών: σήμα κατάστασης, τρία νούμερα και μπάρα με το σημείο του ορίου */
+.limit-badge{font-size:.72rem;font-weight:600;letter-spacing:.02em;padding:.15rem .55rem;border-radius:999px;white-space:nowrap}
+.limit-badge.is-over{background:rgba(239,68,68,.14);color:#b91c1c}
+.limit-badge.is-warn{background:rgba(245,158,11,.16);color:#a16207}
+[data-theme=glass][data-tone=dark] .limit-badge.is-over,[data-tone=dark] .limit-badge.is-over{background:rgba(239,68,68,.22);color:#fecaca}
+[data-theme=glass][data-tone=dark] .limit-badge.is-warn,[data-tone=dark] .limit-badge.is-warn{background:rgba(245,158,11,.2);color:#fde68a}
+.limit-figures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin-bottom:.6rem}
+.limit-figures > div{display:flex;flex-direction:column;min-width:0}
+.limit-figures span{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--bs-secondary-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.limit-figures strong{font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.limit-figures small{font-size:.75rem;color:var(--bs-secondary-color)}
+.limit-figures .is-over strong{color:#dc2626}
+[data-tone=dark] .limit-figures .is-over strong{color:#fca5a5}
+.limit-meter{position:relative;height:8px;border-radius:99px;background:rgba(var(--bs-body-color-rgb),.1);overflow:visible}
+.limit-meter .lm-in,.limit-meter .lm-over{position:absolute;top:0;bottom:0;left:0}
+.limit-meter .lm-in{border-radius:99px;background:#f59e0b}
+.limit-meter.is-over .lm-in{background:rgba(var(--bs-body-color-rgb),.35);border-radius:99px 0 0 99px}
+.limit-meter .lm-over{background:#ef4444;border-radius:0 99px 99px 0}
+.limit-meter .lm-mark{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;border-radius:2px;background:var(--bs-body-color)}
+.limit-scale{position:relative;display:flex;font-size:.7rem;color:var(--bs-secondary-color);margin-top:.3rem;min-height:1rem;font-variant-numeric:tabular-nums}
+.limit-scale .lm-label{position:absolute;transform:translateX(-50%);white-space:nowrap;font-weight:600;color:var(--bs-body-color)}
+.limit-scale .lm-label[style*="left:100%"]{transform:translateX(-100%)}
+.limit-row + .limit-row{margin-top:.25rem}
+/* Tooltips (π.χ. ονόματα και ώρες στα avatars): διαβάσιμα σε όλα τα θέματα εκτός του Κλασικού που μένει ως έχει */
+:is([data-theme=glass],[data-theme=neo],[data-theme=minimal]) .tooltip{--bs-tooltip-bg:var(--menu-bg);--bs-tooltip-color:var(--menu-fg);--bs-tooltip-opacity:1;--bs-tooltip-font-size:.8125rem}
+:is([data-theme=glass],[data-theme=neo],[data-theme=minimal]) .tooltip-inner{border:1px solid var(--menu-border);box-shadow:var(--menu-shadow);padding:.4rem .65rem;font-weight:500}
+.table > tbody > tr > td.text-end.text-nowrap{padding-left:.25rem;padding-right:.5rem}
+td.text-nowrap > .btn-icon{--bs-btn-padding-x:.25rem}
+
+/* ======================================================================
+   v1.9.15: Αναφορές, γραμμές που ανοίγουν/κλείνουν (project → χρήστες)
+   ====================================================================== */
+.table.summary tr.grp-head{cursor:pointer}
+.table.summary tr.grp-head:hover td{box-shadow:inset 0 0 0 9999px color-mix(in srgb,currentColor 4%,transparent)}
+.table.summary .grp-toggle{border:0;background:none;padding:0;width:1.6rem;height:1.6rem;display:inline-flex;align-items:center;justify-content:center;margin-right:.35rem;border-radius:.45rem;color:inherit;opacity:.65;vertical-align:middle}
+.table.summary .grp-toggle:hover{opacity:1;background:color-mix(in srgb,currentColor 9%,transparent)}
+.table.summary .grp-toggle .bi{font-size:.8rem;transition:transform .15s ease}
+.table.summary tr.grp-head.open .grp-toggle .bi{transform:rotate(90deg)}
+.table.summary .grp-toggle-sp{display:inline-block;width:1.6rem;margin-right:.35rem}
+.table.summary .grp-count{display:inline-flex;align-items:center;font-size:.72rem;font-weight:500;padding:.05rem .45rem;border-radius:999px;background:color-mix(in srgb,currentColor 8%,transparent);opacity:.8;margin-left:.2rem;vertical-align:middle}
+.table.summary tr.grp-kid td:first-child{padding-left:3.1rem}
+@media print{.table.summary tr.grp-kid[hidden]{display:table-row!important}.table.summary .grp-toggle,.table.summary .grp-toggle-sp,[data-grp-all]{display:none!important}}
+
+/* Dashboard: Top 3 projects */
+.tp-rank{clear:both;display:flex;flex-direction:column;gap:.45rem;padding-top:.35rem}
+.tp-rank-row{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:.6rem;row-gap:.2rem;align-items:center;font-size:.9rem}
+.tp-rank-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center}
+.tp-rank-name .dot{flex:none}
+.tp-rank-num{font-variant-numeric:tabular-nums;opacity:.85;font-size:.85rem;white-space:nowrap}
+.tp-rank-bar{grid-column:1/-1;height:4px;border-radius:9px;background:color-mix(in srgb,currentColor 10%,transparent);overflow:hidden}
+.tp-rank-bar i{display:block;height:100%;border-radius:9px}
+
+/* Ώρες ανά tag (project) */
+.tb-progress{height:5px}
+.tb-row .tdate-btn{min-width:0}
+.tb-row .tdate-text{overflow:hidden;text-overflow:ellipsis}
+/* Χρονομέτρηση: γραμμή ορίου «όλα καλά» σαν τις γυάλινες κάρτες, με πράσινο περίγραμμα */
+[data-theme=glass] #budgetWarn.alert-success{--bs-alert-bg:var(--glass-bg);--bs-alert-color:#fff;--bs-alert-border-color:rgba(134,239,172,.55);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur)}
+[data-theme=glass][data-tone=light] #budgetWarn.alert-success{--bs-alert-color:var(--s-ok)}
+.entry-limit{white-space:nowrap;font-size:.78rem;font-variant-numeric:tabular-nums;padding:.1rem .5rem;border-radius:999px;border:1px solid currentColor;line-height:1.4}
+.entry-limit.is-ok{color:var(--bs-success-text-emphasis)}
+.entry-limit.is-warn{color:var(--bs-warning-text-emphasis)}
+.entry-limit.is-over{color:var(--bs-danger-text-emphasis)}
+[data-theme=glass]:not([data-tone=light]) .entry-limit.is-ok{color:#6ee7a8}
+[data-theme=glass]:not([data-tone=light]) .entry-limit.is-warn{color:#fcd34d}
+[data-theme=glass]:not([data-tone=light]) .entry-limit.is-over{color:#fca5a5}
+@media (max-width:991.98px){.entry-limit{display:none}}
+.th-sort{color:inherit;text-decoration:none;white-space:nowrap}
+.th-sort:hover{text-decoration:underline}
+.tb-default-submit{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0}
+.tb-row + .tb-row{border-top:1px dashed var(--bs-border-color);padding-top:.5rem}
+.tb-history summary{cursor:pointer}
+.tag-line{margin-top:.45rem}
+.tag-line:first-child{margin-top:0}
+.tb-row .form-select,.tb-row .form-control{min-width:0}
+
+/* Ενέργειες χωρίς reload: ένδειξη ότι κάτι στέλνεται */
+.tt-progress{position:fixed;top:0;left:0;height:2px;width:40%;z-index:2000;pointer-events:none;opacity:0;visibility:hidden;background:linear-gradient(90deg,transparent,#8b5cf6,#3b82f6,transparent)}
+html.tt-busy .tt-progress{visibility:visible;animation:tt-show 0s linear .35s forwards,tt-load 1s ease-in-out .35s infinite}
+@keyframes tt-show{to{opacity:1}}
+@keyframes tt-load{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+/* το κουμπί που πατήθηκε μένει όπως είναι (χωρίς ημιδιαφάνεια: θα «έσβηνε» το θόλωμα των γυάλινων καρτών) */
+button.tt-pressed:disabled{opacity:1}
+@media (prefers-reduced-motion:reduce){html.tt-busy .tt-progress{animation:tt-show 0s linear .35s forwards;width:100%}}
+
+/* Ρυθμίσεις: προεπισκόπηση σελίδας σύνδεσης */
+.login-look-frame{position:relative;width:100%;max-width:520px;aspect-ratio:16/10;overflow:hidden;border-radius:.75rem;border:1px solid color-mix(in srgb,currentColor 18%,transparent);background:color-mix(in srgb,currentColor 6%,transparent)}
+.login-look-frame iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none}
+
+/* Admin: αλλαγή ομάδας (Developers / Marketing) στην πάνω μπάρα */
+.dept-btn{display:inline-flex;align-items:center;gap:.45rem;border-radius:999px;padding:.3rem .8rem;color:inherit;border:1px solid color-mix(in srgb,currentColor 22%,transparent);background:color-mix(in srgb,currentColor 7%,transparent);font-weight:500}
+.dept-btn:hover,.dept-btn:focus-visible,.dept-btn.show{color:inherit;background:color-mix(in srgb,currentColor 13%,transparent);border-color:color-mix(in srgb,currentColor 32%,transparent)}
+.dept-btn .dot{margin:0}
+.dept-switch .dropdown-item .dot{margin:0}
+@media (max-width:575.98px){.dept-btn .dept-name{max-width:7rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+
+/* Κινητό: ραβδόγραμμα χωρίς επικαλύψεις, Projects και Ομάδα χωρίς κομμένες στήλες */
+@media (max-width:575.98px){
+  .bc-val,.bc-wd,.bc-label.bc-minor{display:none}
+  .proj-table .col-contrib,.proj-table .col-bill,.proj-table .col-tags,.proj-table .col-last{display:none}
+  .proj-table thead th{white-space:normal}
+  .proj-table tbody td:first-child{overflow-wrap:anywhere}
+  .team-table>:not(caption)>*>*{padding-left:.4rem;padding-right:.4rem}
+}
+.team-table thead th.th-wrap{white-space:normal}
+.team-table .u-email{overflow-wrap:anywhere}
+
+/* Κινητό: πάνω μπάρα που χωράει πάντα (v1.9.33) */
+.app-topbar .navbar-brand{min-width:0;overflow:hidden;flex-shrink:1}
+.app-topbar .topbar-logo{max-width:100%;object-fit:contain;object-position:left center}
+.app-topbar .running-pill,.app-topbar .dept-switch,.app-topbar .notif,.app-topbar .topbar-user{flex-shrink:0}
+@media (max-width:575.98px){
+  .app-topbar .container-fluid{gap:.35rem!important}
+  .dept-btn{padding:.3rem .55rem;gap:.3rem}
+  .dept-btn .dept-name{display:none}
+  .app-topbar .running-pill{padding-left:.65rem!important;gap:.35rem!important}
+  /* όσο τρέχει χρονόμετρο, το λογότυπο κρύβεται και το χρονόμετρο παίρνει τη θέση του */
+  .app-topbar .container-fluid:has(.running-pill) .navbar-brand{display:none!important}
+  .app-topbar .running-pill{margin-right:auto}
+}
+
+/* Κινητό: το «< από έως >» της περιόδου σε μία γραμμή (v1.9.33) */
+@media (max-width:575.98px){
+  [data-range-picker]{flex:1 1 100%;min-width:0;max-width:100%}
+  [data-range-picker] .input-group{flex:1 1 100%;flex-wrap:nowrap;width:100%!important}
+  [data-range-picker] .input-group>.form-control{flex:1 1 0;min-width:0;padding-left:.45rem;padding-right:.3rem;font-size:.9rem}
+  [data-range-picker] .input-group>.btn{flex:none;padding-left:.6rem;padding-right:.6rem}
+}

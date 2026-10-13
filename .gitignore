@@ -1,0 +1,21 @@
+# Local configuration and installer secrets (written by install.php)
+/includes/config.php
+/includes/install_key.php
+/includes/INSTALL_KEY.txt
+
+# User uploads (keep the folder guards)
+/uploads/avatars/*
+!/uploads/avatars/index.html
+/uploads/brand/
+
+# Release packages and data dumps
+*.zip
+*.sql.gz
+/sql-*/
+*.log
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
